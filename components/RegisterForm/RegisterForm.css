@@ -1,0 +1,86 @@
+.register-container {   
+    width: 350px;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: rgba(255, 255, 255, 0.938);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+.title{
+    text-align: center;
+    color: #000000;
+    margin-bottom: 20px;
+}
+.logo-box{
+    background-color: #dbe7f7;
+    padding: 30px;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.role-container{
+    border: 2px dashed #8bb3ff;
+    padding: 15px;
+    color: #000000;
+    margin-bottom: 20px;
+}
+.role-buttons{
+    display: flex;
+    gap: 15px;
+    color: #000000;
+    margin-top: 10px;
+}
+.role-buttons button{
+    flex: 1;
+    padding: 12px;
+    color: #000000;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+}
+.active-role {
+    border: 2px solid #2d6cff !important;
+    color: #2d6cff;
+    font-weight: bold;
+}
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.input-group {
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.input-group input {
+    padding: 12px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    border: 1px solid #918d8d;
+}
+.register-button {
+    margin-top: 10px;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2d6cff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.login-text {
+    text-align: center;
+    color: #000000;
+    margin-top: 20px;
+}
+.login-text span {
+    color: #2d6cff;
+    cursor: pointer;
+    font-weight: bold;
+}
