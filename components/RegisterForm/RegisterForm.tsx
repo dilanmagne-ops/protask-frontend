@@ -1,10 +1,14 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+//D
+import Link from "next/link";
 
 import "./RegisterForm.css"
 
 
 export default function RegisterForm(){
+    const router = useRouter();
     const [role, setRole] =
      useState("cliente");
 
@@ -20,6 +24,7 @@ export default function RegisterForm(){
     const [confirmPassword,
     setConfirmPassword] =
     useState("");
+
     const handleRegister = async (
     e: React.FormEvent
     ) => {
@@ -55,6 +60,7 @@ export default function RegisterForm(){
     console.log(data);
     if (response.ok) {
       alert("Usuario registrado");
+      router.push("/");
     } else {
       alert(data.message ||
         "Error al registrar");
@@ -147,11 +153,15 @@ export default function RegisterForm(){
                 Registrarse
             </button>
         </form>
+        <Link href="/">
+            <button className="back-button">
+                Volver al menú
+            </button>
+        </Link>
         <p className="login-text">
             ¿Ya tienes Cuenta?
             <span> Iniciar sesion</span>
         </p>
         </div>
     );
-    
 }

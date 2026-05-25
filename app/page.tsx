@@ -1,6 +1,8 @@
 import Navbar from "../components/Navbar/Navbar";
 import ProductCard from "../components/ProductCard/ProductCard";
 import "./Home.css";
+// CONEXION DE BOTONES PARA LLEVAR A OTRAS PAGINAS
+import Link from "next/link";
 
 async function getProducts() {
   const response = await fetch("https://dummyjson.com/products");
@@ -20,11 +22,17 @@ export default async function Home() {
       title="Mi Tienda"
       items={["Inicio", "Productos", "Contacto"]}
       />
-      //CREAR BARRITA DE ENTRADA EN LA PAGINA WEB
+      {/* CREAR BARRITA DE ENTRADA EN LA PAGINA WEB */}
       <Navbar
        title="Admin Panel"
        items={["Usuarios", "Ventas"]}
       />
+      {/* CREAR BOTON DE REGISTRO*/}
+      <Link href="/register">
+        <button className="register-home-button">
+          Registrarse
+        </button>
+      </Link>
       <h1>Catálogo de Productos</h1>
 
       <div className="products-container">

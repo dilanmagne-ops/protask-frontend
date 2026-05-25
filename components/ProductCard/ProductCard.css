@@ -1,22 +1,46 @@
 .card {
-  width: 250px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-
-  padding: 15px;
-  margin: 10px;
-
-  transition: 0.3s;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0; /* Borde sutil */
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .card:hover {
-  transform: scale(1.03);
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.05);
 }
 
 .card img {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: 160px;
+  object-fit: contain;
+  background-color: #f8fafc;
+  border-radius: 6px;
+  padding: 8px;
+}
 
-  border-radius: 10px;
+.card h3, .card .title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+
+.card p, .card .description {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.card .price, .card span:last-of-type {
+  font-size: 15px;
+  font-weight: 700;
+  color: #10b981;
+  margin-top: auto;
 }
