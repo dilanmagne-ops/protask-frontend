@@ -1,58 +1,97 @@
 "use client";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import Navbar from "../../../components/Navbar/Navbar";
 import UserCard from "../../../components/UserCard/Usercard";
 
-const usuarios = [
-  {
-    id: "1",
-    name: "Carlos Mendoza",
-    email: "carlos@gmail.com",
-    role: "freelancer",
-    status: "Activo",
-  },
-
-  {
-    id: "2",
-    name: "Maria Lopez",
-    email: "maria@gmail.com",
-    role: "cliente",
-    status: "Activo",
-  },
-];
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  status: string;
+};
 
 export default function AprobadosPage() {
+    const [usuarios, setUsuarios] =
+    useState<User[]>([]);
+    async function cargarUsuarios() {
+
+        try {
+
+        const token =
+            localStorage.getItem("token");
+
+        const response = await fetch(
+            "http://localhost:3000/api/users",
+            {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            }
+        );
+
+        const data = await response.json();
+
+        console.log(data);
+
+        // FILTRAR SOLO ACTIVOS
+        const aprobados = data.data.filter(
+            (user: User) =>
+            user.status.toLowerCase() === "activo"
+        );
+
+        setUsuarios(aprobados);
+
+        } catch (error) {
+
+        console.log(error);
+
+        }
+    }
+
+    useEffect(() => {
+
+        cargarUsuarios();
+
+    }, []);
 
   return (
     <div>
+        <Navbar
+            title="Usuarios Aprobados"
+            items={["Admin"]}
+        />
+        <div className="buttons-container">
+            <Link href="/menuAdmin">
+                <button className="back-button">
+                Volver al menú
+                </button>
+            </Link>
+        </div>
+        <div className="products-container">
 
-      <Navbar
-        title="Usuarios Aprobados"
-        items={["Admin"]}
-      />
+            {usuarios.map((user) => (
 
-      <div className="products-container">
+            <UserCard
+                key={user.id}
 
-        {usuarios.map((user) => (
+                id={user.id}
 
-          <UserCard
-            key={user.id}
+                name={user.name}
 
-            id={user.id}
+                email={user.email}
 
-            name={user.name}
+                role={user.role}
 
-            email={user.email}
+                status={user.status}
 
-            role={user.role}
+            />
 
-            status={user.status}
+            ))}
 
-          />
-
-        ))}
-
-      </div>
+        </div>
 
     </div>
   );
