@@ -31,8 +31,6 @@ h1 {
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
-
-  margin: 20px;
 }
 
 .register-home-button:hover {
@@ -42,3 +40,28 @@ h1 {
 .register-home-button:active {
   transform: scale(0.98);
 }
+.login-home-button {
+  padding: 12px 20px;
+  background-color: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+.login-home-button:hover {
+  background-color: #15803d;
+}
+
+.login-home-button:active {
+  transform: scale(0.98);
+}
+.buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  margin: 20px;
+  gap: 10px;
+} 

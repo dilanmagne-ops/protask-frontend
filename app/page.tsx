@@ -27,14 +27,20 @@ export default async function Home() {
        title="Admin Panel"
        items={["Usuarios", "Ventas"]}
       />
-      {/* CREAR BOTON DE REGISTRO*/}
-      <Link href="/register">
-        <button className="register-home-button">
-          Registrarse
-        </button>
-      </Link>
-      <h1>Catálogo de Productos</h1>
-
+      <div className="buttons-container">
+      {/* CREAR BOTON DE INICIAR SESION */}
+      <Link href="/login">
+          <button className="login-home-button">
+            Iniciar Sesión
+          </button>
+        </Link>
+        {/* CREAR BOTON DE REGISTRO*/}
+        <Link href="/register">
+          <button className="register-home-button">
+            Registrarse
+          </button>
+        </Link>
+     </div>
       <div className="products-container">
         {products.slice(0, 8).map((product: any) => (
           <ProductCard
