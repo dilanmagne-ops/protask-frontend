@@ -1,0 +1,107 @@
+.card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  border-color: #3b82f6;
+
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.05);
+}
+
+.card img {
+  width: 100%;
+  height: 160px;
+
+  object-fit: contain;
+
+  background-color: #f8fafc;
+
+  border-radius: 6px;
+
+  padding: 8px;
+}
+
+.card h2 {
+  font-size: 22px;
+  color: #0f172a;
+  margin: 0;
+}
+
+.card p {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+}
+
+.card h3 {
+  color: #10b981;
+  margin-top: auto;
+}
+
+.user-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.user-buttons button {
+  flex: 1;
+  padding: 10px;
+
+  border: none;
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  color: white;
+  font-weight: 600;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.approve-button {
+  background-color: #22c55e;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.approve-button:hover {
+  background-color: #b1b1b1;
+}
+
+.approve-button:active {
+  transform: scale(0.98);
+}
+.reject-button {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.reject-button:hover {
+  background-color: #b1b1b1;
+}
+
+.reject-button:active {
+  transform: scale(0.98);
+}
