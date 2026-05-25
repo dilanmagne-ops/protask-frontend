@@ -1,4 +1,5 @@
 "use client";
+
 import "./Usercard.css";
 
 type UserCardProps = {
@@ -13,113 +14,56 @@ type UserCardProps = {
 };
 
 export default function Usercard({
-  id,
   name,
   email,
   role,
   status,
+  onApprove,
+  onReject,
 }: UserCardProps) {
-    async function aprobarUsuario(id: string) {
 
-        try {
-            const token = localStorage.getItem("token");
-            const response = await fetch(
-            `http://localhost:3000/api/users/${id}/verify`,
-            {
-            method: "PATCH",
-
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-            }
-            );
-            const data = await response.json();
-            if (!response.ok) {
-                alert("Error al aprobar usuario");
-                console.log(data);
-                return;
-            }
-            alert("Usuario aprobado");
-            // Recargar página
-            window.location.reload();
-        } catch (error) {
-        console.log(error);
-        alert("Error de conexión");
-        }
-    }
-    async function rechazarUsuario(id: string) {
-        try {
-
-            const token = localStorage.getItem("token");
-
-            const response = await fetch(
-            `http://localhost:3000/api/users/${id}`,
-            {
-                method: "DELETE",
-
-                headers: {
-                Authorization: `Bearer ${token}`,
-                },
-            }
-            );
-
-            if (!response.ok) {
-
-            alert("Error al rechazar usuario");
-
-            return;
-            }
-
-            alert("Usuario rechazado");
-
-            window.location.reload();
-
-        } catch (error) {
-
-            console.log(error);
-
-            alert("Error de conexión");
-        }
-    }
   return (
+
     <div className="card">
-        <img
-            src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-            alt="Usuario"
-        />
 
-        <h2>{name}</h2>
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+        alt="Usuario"
+      />
 
-        <p>{email}</p>
+      <h2>{name}</h2>
 
-        <p>
-            Rol: {role}
-        </p>
+      <p>{email}</p>
 
-        <h3>{status}</h3>
-        {
-            status.toLowerCase() === "pendiente" && (
+      <p>
+        Rol: {role}
+      </p>
 
-                <div className="buttons-container">
+      <h3>{status}</h3>
 
-                <button
-                    className="approve-button"
-                    onClick={() => aprobarUsuario(id)}
-                >
-                    Aprobar Usuario
-                </button>
+      {
+        status.toLowerCase() === "pendiente_verificacion" && (
+          <>
 
-                <button
-                    className="reject-button"
-                    onClick={() => rechazarUsuario(id)}
-                >
-                    Rechazar Usuario
-                </button>
+            <button
+              className="approve-button"
+              onClick={onApprove}
+            >
+              Aprobar Usuario
+            </button>
 
-                </div>
-            )
-        }
+            <button
+              className="reject-button"
+              onClick={onReject}
+            >
+              Rechazar Usuario
+            </button>
+
+          </>
+        )
+      }
+
     </div>
+
   );
 }
