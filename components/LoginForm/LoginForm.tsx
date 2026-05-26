@@ -66,7 +66,15 @@ export default function LoginForm() {
         if (user.role === "administrador") {
         router.push("/menuAdmin");
         }
+        else if (user.role === "cliente")
+        {
+            router.push("/menuCliente");
+        }
 
+        else if (user.role === "freelancer")
+        {
+            router.push("/menuFreelancer");
+        }
         } catch (error) {
 
         setError(

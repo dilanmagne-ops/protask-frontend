@@ -1,0 +1,206 @@
+body {
+    background-color: #f8fafc;
+    margin: 0;
+    font-family: -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+.misproyectos-container {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 40px 20px;
+}
+
+.misproyectos-card {
+
+    width: 100%;
+    max-width: 500px;
+
+    background: white;
+
+    border: 1px solid #dbe2ea;
+
+    border-radius: 14px;
+
+    padding: 30px;
+
+    box-shadow:
+    0 4px 12px rgba(0,0,0,0.05);
+}
+
+.misproyectos-card h1 {
+
+    text-align: center;
+
+    margin-bottom: 25px;
+
+    color: #0f172a;
+}
+
+.misproyectos-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+
+    color: #475569;
+}
+
+.cliente-role {
+
+    color: #94a3b8;
+}
+
+.search-input {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 8px;
+
+    margin-bottom: 20px;
+
+    box-sizing: border-box;
+}
+
+.filters-box {
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 10px;
+
+    padding: 18px;
+
+    margin-bottom: 25px;
+}
+
+.filters-box h3 {
+
+    margin-top: 0;
+
+    color: #334155;
+}
+
+.input-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin-bottom: 15px;
+}
+
+.input-group select {
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+    border: 1px solid #cbd5e1;
+}
+
+.budget-inputs {
+
+    display: flex;
+
+    gap: 10px;
+}
+
+.budget-inputs input {
+
+    flex: 1;
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+    border: 1px solid #cbd5e1;
+}
+
+.project-item {
+
+    border: 1px solid #dbe2ea;
+
+    border-radius: 10px;
+
+    padding: 16px;
+
+    margin-bottom: 15px;
+}
+
+.project-item h2 {
+
+    margin: 0;
+
+    font-size: 18px;
+
+    color: #0f172a;
+}
+
+.project-item p {
+
+    color: #64748b;
+
+    margin: 10px 0;
+}
+
+.project-footer {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    color: #475569;
+}
+
+.price {
+
+    color: #16a34a;
+
+    font-weight: bold;
+}
+
+.back-button {
+
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.back-button:hover {
+
+    background: #1d4ed8;
+}
