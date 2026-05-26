@@ -19,7 +19,7 @@ export default async function Home() {
   return (
     <div>
       <Navbar
-      title="Mi Tienda"
+      title="MiTienda"
       items={["Inicio", "Productos", "Contacto"]}
       />
       {/* CREAR BARRITA DE ENTRADA EN LA PAGINA WEB */}
