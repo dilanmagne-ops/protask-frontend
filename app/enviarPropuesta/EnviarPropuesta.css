@@ -1,0 +1,169 @@
+* {
+    box-sizing: border-box;
+}
+
+.pagina-propuesta {
+    min-height: 100vh;
+    background: #f3f4f6;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 18px;
+    font-family: Arial, sans-serif;
+    color: #111827;
+}
+
+.tarjeta-principal {
+    width: 330px;
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 22px;
+}
+
+.tarjeta-principal h1 {
+    text-align: center;
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 22px;
+    color: #111827;
+}
+
+.proyecto-info {
+    background: #e5e7eb;
+    border-radius: 3px;
+    padding: 14px;
+    margin-bottom: 20px;
+}
+
+.proyecto-info h2 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 4px 0;
+    color: #111827;
+}
+
+.proyecto-info p {
+    font-size: 13px;
+    margin: 0 0 12px 0;
+    color: #111827;
+}
+
+.proyecto-datos {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: bold;
+    color: #111827;
+}
+
+.formulario-propuesta {
+    border: 1px dashed #3b82f6;
+    padding: 16px;
+    margin-bottom: 18px;
+}
+
+.formulario-propuesta h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 16px 0;
+    color: #111827;
+}
+
+.fila-campos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.campo label {
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #111827;
+}
+
+.campo input {
+    width: 100%;
+    height: 34px;
+    background: white;
+    color: #111827;
+    border: 1px solid #d1d5db;
+    border-radius: 3px;
+    padding: 5px;
+    outline: none;
+}
+
+.campo textarea {
+    width: 100%;
+    height: 96px;
+    background: white;
+    color: #111827;
+    border: 1px solid #d1d5db;
+    border-radius: 3px;
+    resize: none;
+    padding: 6px;
+    outline: none;
+}
+
+.campo input:focus,
+.campo textarea:focus {
+    border-color: #2563eb;
+}
+
+.ayuda {
+    font-size: 12px;
+    color: #9ca3af;
+    margin: 8px 0 0 0;
+}
+
+.mensaje-verificado {
+    border: 1px solid #86efac;
+    background: #f0fdf4;
+    color: #15803d;
+    padding: 12px;
+    border-radius: 3px;
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+
+.botones {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.botones button {
+    flex: 1;
+    height: 40px;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-cancelar {
+    background: white;
+    border: 1px solid #d1d5db;
+    color: #111827;
+}
+
+.btn-enviar {
+    background: #2563eb;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+.nota {
+    text-align: center;
+    font-size: 12px;
+    color: #6b7280;
+    width: 230px;
+    margin: auto;
+}
