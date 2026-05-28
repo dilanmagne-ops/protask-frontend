@@ -1,0 +1,168 @@
+* {
+    box-sizing: border-box;
+}
+
+.pagina-seleccion {
+    min-height: 100vh;
+    background: #f3f4f6;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 40px;
+    font-family: Arial, sans-serif;
+    color: #111827;
+}
+
+.tarjeta-principal {
+    width: 380px;
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 32px;
+}
+
+.tarjeta-principal h1 {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 28px;
+    color: #111827;
+}
+
+.proyecto-info {
+    background: #e5e7eb;
+    border-radius: 3px;
+    padding: 14px;
+    margin-bottom: 22px;
+}
+
+.proyecto-info h2 {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 0 4px 0;
+    color: #111827;
+}
+
+.proyecto-info p {
+    font-size: 14px;
+    margin: 0;
+    color: #4b5563;
+}
+
+.propuesta {
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 12px;
+    background: white;
+}
+
+.propuesta-seleccionada {
+    border: 2px solid #3b82f6;
+    background: #f8fbff;
+}
+
+.propuesta-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.propuesta h2 {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 0 4px 0;
+    color: #111827;
+}
+
+.calificacion {
+    color: #d97706;
+    font-size: 14px;
+    margin: 0 0 12px 0;
+}
+
+.propuesta-datos {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #374151;
+    margin-top: 12px;
+}
+
+.propuesta a {
+    display: inline-block;
+    margin-top: 14px;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.btn-seleccionado {
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 9px 14px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.escrow {
+    border: 1px dashed #22c55e;
+    background: #f0fdf4;
+    padding: 20px;
+    margin-top: 22px;
+}
+
+.escrow h2 {
+    font-size: 17px;
+    font-weight: bold;
+    margin: 0 0 14px 0;
+    color: #111827;
+}
+
+.escrow p {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0 0 18px 0;
+    color: #374151;
+}
+
+.resumen-pago {
+    border: 1px solid #d1d5db;
+    background: white;
+    border-radius: 3px;
+    padding: 12px;
+    margin-bottom: 16px;
+}
+
+.resumen-pago div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.resumen-pago div:last-child {
+    margin-bottom: 0;
+}
+
+.btn-pagar {
+    width: 100%;
+    height: 42px;
+    background: #16a34a;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.propuesta {
+    cursor: pointer;
+}
+
+.propuesta:hover {
+    background: #f9fafb;
+}
