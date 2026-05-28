@@ -24,7 +24,6 @@ export default function MenuCliente()
     {
         const userGuardado = localStorage.getItem("user");
 
-        // No existe usuario
         if (!userGuardado)
         {
             router.push("/login");
@@ -33,7 +32,6 @@ export default function MenuCliente()
 
         const userParseado = JSON.parse(userGuardado);
 
-        // No es cliente
         if (userParseado.role !== "cliente")
         {
             router.push("/login");
@@ -60,6 +58,7 @@ export default function MenuCliente()
                 items={[
                     "Buscar Freelancers",
                     "Mis Proyectos",
+                    "Propuestas Recibidas",
                 ]}
             />
 
@@ -79,7 +78,7 @@ export default function MenuCliente()
 
                     <button
                         onClick={() =>
-                            router.push("/menuCliente/verMisProyectos")
+                            router.push("/menuCliente/MisProyectos")
                         }
                     >
                         Mis Proyectos
@@ -91,6 +90,14 @@ export default function MenuCliente()
                         }
                     >
                         Crear Proyecto
+                    </button>
+
+                    <button
+                        onClick={() =>
+                            router.push("/seleccionarFreelancer")
+                        }
+                    >
+                        Propuestas Recibidas
                     </button>
 
                     <button
