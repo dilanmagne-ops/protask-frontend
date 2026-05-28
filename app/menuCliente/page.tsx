@@ -51,65 +51,121 @@ export default function MenuCliente()
     }
 
     return (
-        <div>
+        <main className="cliente-page">
 
             <Navbar
-                title={`Bienvenido ${user?.name}`}
+                title={`Bienvenido ${user?.name || "Cliente"}`}
                 items={[
-                    "Buscar Freelancers",
                     "Mis Proyectos",
-                    "Propuestas Recibidas",
+                    "Crear Proyecto",
                 ]}
             />
 
-            <div className="cliente-container">
+            <section className="cliente-hero">
 
-                <h1>
-                    Panel Cliente
-                </h1>
+                <div className="cliente-content">
 
-                <p>
-                    Publica proyectos,
-                    encuentra freelancers
-                    y administra tus trabajos.
-                </p>
+                    <span className="cliente-badge">
+                        Panel de Cliente
+                    </span>
 
-                <div className="cliente-buttons">
+                    <h1>
+                        Administra tus proyectos de forma profesional
+                    </h1>
 
-                    <button
-                        onClick={() =>
-                            router.push("/menuCliente/verMisProyectos")
-                        }
-                    >
+                    <p>
+                        Publica proyectos, revisa el estado de tus trabajos
+                        y gestiona tus solicitudes desde un solo lugar.
+                    </p>
+
+                </div>
+
+                <div className="cliente-user-card">
+
+                    <div className="user-avatar">
+                        {user?.name?.charAt(0).toUpperCase() || "C"}
+                    </div>
+
+                    <h2>
+                        {user?.name || "Cliente"}
+                    </h2>
+
+                    <p>
+                        {user?.email || "Correo no disponible"}
+                    </p>
+
+                    <span>
+                        Rol: Cliente
+                    </span>
+
+                </div>
+
+            </section>
+
+            <section className="cliente-actions">
+
+                <div
+                    className="action-card"
+                    onClick={() =>
+                        router.push("/menuCliente/verMisProyectos")
+                    }
+                >
+                    <span className="action-number">01</span>
+
+                    <h3>
                         Mis Proyectos
-                    </button>
+                    </h3>
 
-                    <button
-                        onClick={() =>
-                            router.push("/menuCliente/crearProyecto")
-                        }
-                    >
+                    <p>
+                        Revisa los proyectos que publicaste y controla su estado.
+                    </p>
+
+                    <button>
+                        Ver proyectos
+                    </button>
+                </div>
+
+                <div
+                    className="action-card"
+                    onClick={() =>
+                        router.push("/menuCliente/crearProyecto")
+                    }
+                >
+                    <span className="action-number">02</span>
+
+                    <h3>
                         Crear Proyecto
-                    </button>
+                    </h3>
 
-                    <button
-                        onClick={() =>
-                            router.push("/seleccionarFreelancer")
-                        }
-                    >
-                        Propuestas Recibidas
-                    </button>
+                    <p>
+                        Publica una nueva solicitud para encontrar freelancers.
+                    </p>
 
-                    <button
-                        onClick={cerrarSesion}
-                    >
-                        Cerrar Sesion
+                    <button>
+                        Crear proyecto
+                    </button>
+                </div>
+
+                <div className="action-card logout-card">
+
+                    <span className="action-number">03</span>
+
+                    <h3>
+                        Cerrar Sesión
+                    </h3>
+
+                    <p>
+                        Sal de tu cuenta de forma segura.
+                    </p>
+
+                    <button onClick={cerrarSesion}>
+                        Cerrar sesión
                     </button>
 
                 </div>
 
-            </div>
+            </section>
 
-        </div>
+        </main>
     );
 }

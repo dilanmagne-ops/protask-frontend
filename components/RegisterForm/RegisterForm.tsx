@@ -58,128 +58,198 @@ export default function RegisterForm() {
     };
 
     return (
-        <div className="register-container">
-            <h1 className="title">
-                Formulario de registro
-            </h1>
+        <main className="register-page">
 
-            <div className="logo-box">
-                Protask Logo
-            </div>
+            <section className="register-layout">
 
-            <div className="role-container">
-                <p>Selecciona tu rol:</p>
+                <div className="register-info">
 
-                <div className="role-buttons">
-                    <button
-                        type="button"
-                        className={
-                            role === "cliente"
-                                ? "active-role"
-                                : ""
-                        }
-                        onClick={() =>
-                            setRole("cliente")
-                        }
+                    <Link href="/" className="brand-link">
+                        ProTask
+                    </Link>
+
+                    <span className="register-badge">
+                        Crea tu cuenta
+                    </span>
+
+                    <h1 className="info-title">
+                        Empieza a trabajar en proyectos de forma segura
+                    </h1>
+
+                    <p className="info-text">
+                        Regístrate como cliente para publicar proyectos o como freelancer
+                        para encontrar oportunidades y enviar propuestas.
+                    </p>
+
+                    <div className="info-list">
+
+                        <div>
+                            <strong>Cliente</strong>
+                            <span>Publica proyectos y encuentra talento.</span>
+                        </div>
+
+                        <div>
+                            <strong>Freelancer</strong>
+                            <span>Busca proyectos y ofrece tus servicios.</span>
+                        </div>
+
+                        <div>
+                            <strong>ProTask</strong>
+                            <span>Conecta ambas partes de manera profesional.</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div className="register-card">
+
+                    <div className="register-header">
+
+                        <div className="logo-box">
+                            PT
+                        </div>
+
+                        <div>
+                            <h2 className="title">
+                                Registrarse
+                            </h2>
+
+                            <p className="register-subtitle">
+                                Completa tus datos para crear tu cuenta.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div className="role-container">
+
+                        <p>Selecciona tu rol:</p>
+
+                        <div className="role-buttons">
+
+                            <button
+                                type="button"
+                                className={
+                                    role === "cliente"
+                                        ? "active-role"
+                                        : ""
+                                }
+                                onClick={() =>
+                                    setRole("cliente")
+                                }
+                            >
+                                Cliente
+                            </button>
+
+                            <button
+                                type="button"
+                                className={
+                                    role === "freelancer"
+                                        ? "active-role"
+                                        : ""
+                                }
+                                onClick={() =>
+                                    setRole("freelancer")
+                                }
+                            >
+                                Freelancer
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <form
+                        className="register-form"
+                        onSubmit={handleRegister}
                     >
-                        Cliente
-                    </button>
 
-                    <button
-                        type="button"
-                        className={
-                            role === "freelancer"
-                                ? "active-role"
-                                : ""
-                        }
-                        onClick={() =>
-                            setRole("freelancer")
-                        }
-                    >
-                        Freelancer
-                    </button>
+                        <div className="input-group">
+                            <label>Nombre completo</label>
+
+                            <input
+                                type="text"
+                                placeholder="Ejemplo: Joel Delgado"
+                                value={name}
+                                onChange={(e) =>
+                                    setName(e.target.value)
+                                }
+                                required
+                            />
+                        </div>
+
+                        <div className="input-group">
+                            <label>Email</label>
+
+                            <input
+                                type="email"
+                                placeholder="ejemplo@correo.com"
+                                value={email}
+                                onChange={(e) =>
+                                    setEmail(e.target.value)
+                                }
+                                required
+                            />
+                        </div>
+
+                        <div className="input-group">
+                            <label>Contraseña</label>
+
+                            <input
+                                type="password"
+                                placeholder="Crea una contraseña"
+                                value={password}
+                                onChange={(e) =>
+                                    setPassword(e.target.value)
+                                }
+                                required
+                            />
+                        </div>
+
+                        <div className="input-group">
+                            <label>Confirmar contraseña</label>
+
+                            <input
+                                type="password"
+                                placeholder="Repite tu contraseña"
+                                value={confirmPassword}
+                                onChange={(e) =>
+                                    setConfirmPassword(e.target.value)
+                                }
+                                required
+                            />
+                        </div>
+
+                        <button
+                            type="submit"
+                            className="register-button"
+                        >
+                            Crear cuenta
+                        </button>
+
+                    </form>
+
+                    <div className="register-footer">
+
+                        <p>
+                            ¿Ya tienes cuenta?
+                        </p>
+
+                        <Link href="/login" className="login-link">
+                            Iniciar sesión
+                        </Link>
+
+                    </div>
+
+                    <Link href="/" className="back-link">
+                        Volver al inicio
+                    </Link>
+
                 </div>
-            </div>
 
-            <form
-                className="register-form"
-                onSubmit={handleRegister}
-            >
-                <div className="input-group">
-                    <label>Nombre completo</label>
+            </section>
 
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) =>
-                            setName(e.target.value)
-                        }
-                        required
-                    />
-                </div>
-
-                <div className="input-group">
-                    <label>Email</label>
-
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) =>
-                            setEmail(e.target.value)
-                        }
-                        required
-                    />
-                </div>
-
-                <div className="input-group">
-                    <label>Contraseña</label>
-
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) =>
-                            setPassword(e.target.value)
-                        }
-                        required
-                    />
-                </div>
-
-                <div className="input-group">
-                    <label>Confirmar contraseña</label>
-
-                    <input
-                        type="password"
-                        value={confirmPassword}
-                        onChange={(e) =>
-                            setConfirmPassword(e.target.value)
-                        }
-                        required
-                    />
-                </div>
-
-                <button
-                    type="submit"
-                    className="register-button"
-                >
-                    Registrarse
-                </button>
-            </form>
-
-            <Link href="/">
-                <button
-                    type="button"
-                    className="back-button"
-                >
-                    Volver al menú
-                </button>
-            </Link>
-
-            <p className="login-text">
-                ¿Ya tienes Cuenta?
-                <Link href="/login">
-                    <span> Iniciar sesión</span>
-                </Link>
-            </p>
-        </div>
+        </main>
     );
 }

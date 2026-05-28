@@ -74,6 +74,7 @@ export default function VerPropuestasPage()
             console.error(error);
         }
     }
+
     async function aceptarPropuesta(proposalId: string)
     {
         try
@@ -115,6 +116,7 @@ export default function VerPropuestasPage()
             console.error(error);
         }
     }
+
     const filteredProposals =
         proposals.filter((proposal) =>
             proposal.description
@@ -123,19 +125,58 @@ export default function VerPropuestasPage()
         );
 
     return (
-        <div className="misproyectos-container">
+        <main className="propuestas-page">
 
-            <div className="misproyectos-card">
+            <section className="propuestas-hero">
 
-                <h1>
-                    Propuestas Recibidas
-                </h1>
+                <div>
 
-                <div className="misproyectos-header">
+                    <span className="propuestas-badge">
+                        Panel Cliente
+                    </span>
+
+                    <h1>
+                        Propuestas Recibidas
+                    </h1>
+
+                    <p>
+                        Revisa las propuestas enviadas por freelancers,
+                        compara precios, tiempos estimados y elige la mejor opción.
+                    </p>
+
+                </div>
+
+                <div className="propuestas-summary">
 
                     <span>
-                        Freelancers interesados
+                        Total de propuestas
                     </span>
+
+                    <strong>
+                        {proposals.length}
+                    </strong>
+
+                    <p>
+                        Freelancers interesados en este proyecto
+                    </p>
+
+                </div>
+
+            </section>
+
+            <section className="propuestas-content">
+
+                <div className="propuestas-toolbar">
+
+                    <div>
+                        <h2>
+                            Freelancers interesados
+                        </h2>
+
+                        <p>
+                            Busca y evalúa las propuestas recibidas.
+                        </p>
+                    </div>
 
                     <span className="cliente-role">
                         Cliente
@@ -145,7 +186,7 @@ export default function VerPropuestasPage()
 
                 <input
                     type="text"
-                    placeholder="Buscar propuestas..."
+                    placeholder="Buscar propuestas por descripción..."
                     className="search-input"
                     value={search}
                     onChange={(e) =>
@@ -153,59 +194,105 @@ export default function VerPropuestasPage()
                     }
                 />
 
-                <div className="project-list">
+                <div className="proposal-list">
 
                     {
-                        filteredProposals.map((proposal) =>
-                        (
-                            <div
-                                className="project-item"
-                                key={proposal.id}
-                            >
-                                <h2>
-                                    {proposal.freelancer.name}
-                                </h2>
+                        filteredProposals.length === 0
+                        ? (
+                            <div className="empty-proposals">
+
+                                <h3>
+                                    No se encontraron propuestas
+                                </h3>
+
                                 <p>
-                                    {proposal.description}
+                                    Todavía no hay propuestas o la búsqueda no coincide con ningún resultado.
                                 </p>
 
-                                <div className="project-footer">
-
-                                    <span>
-                                        ⏳ {proposal.estimatedDays} días
-                                    </span>
-
-                                    <span className="price">
-                                        Bs. {proposal.offeredPrice}
-                                    </span>
-
-                                </div>
-                                <p>
-                                    Estado: {proposal.status}
-                                </p>
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        gap: "10px",
-                                        marginTop: "15px",
-                                        flexWrap: "wrap",
-                                    }}
+                                <button
+                                    onClick={() =>
+                                        router.back()
+                                    }
                                 >
-
-                                    <button>
-                                        Ver Perfil
-                                    </button>
-
-                                    <button
-                                    onClick={() => aceptarPropuesta(proposal.id)}
-                                    >
-                                        Aceptar
-                                    </button>
-
-                                </div>
+                                    Volver a mis proyectos
+                                </button>
 
                             </div>
-                        ))
+                        )
+                        : (
+                            filteredProposals.map((proposal) =>
+                            (
+                                <div
+                                    className="proposal-item"
+                                    key={proposal.id}
+                                >
+
+                                    <div className="proposal-top">
+
+                                        <div className="freelancer-avatar">
+                                            {proposal.freelancer.name.charAt(0).toUpperCase()}
+                                        </div>
+
+                                        <div>
+                                            <h2>
+                                                {proposal.freelancer.name}
+                                            </h2>
+
+                                            <span className="proposal-status">
+                                                {proposal.status}
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <p className="proposal-description">
+                                        {proposal.description}
+                                    </p>
+
+                                    <div className="proposal-details">
+
+                                        <div>
+                                            <span>
+                                                Tiempo estimado
+                                            </span>
+
+                                            <strong>
+                                                {proposal.estimatedDays} días
+                                            </strong>
+                                        </div>
+
+                                        <div>
+                                            <span>
+                                                Precio ofertado
+                                            </span>
+
+                                            <strong className="price">
+                                                Bs. {proposal.offeredPrice}
+                                            </strong>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="proposal-actions">
+
+                                        <button className="profile-button">
+                                            Ver Perfil
+                                        </button>
+
+                                        <button
+                                            className="accept-button"
+                                            onClick={() =>
+                                                aceptarPropuesta(proposal.id)
+                                            }
+                                        >
+                                            Aceptar Propuesta
+                                        </button>
+
+                                    </div>
+
+                                </div>
+                            ))
+                        )
                     }
 
                 </div>
@@ -220,8 +307,8 @@ export default function VerPropuestasPage()
                     Volver
                 </button>
 
-            </div>
+            </section>
 
-        </div>
+        </main>
     );
 }

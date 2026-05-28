@@ -67,19 +67,58 @@ export default function MisProyectos()
         );
 
     return (
-        <div className="misproyectos-container">
+        <main className="misproyectos-page">
 
-            <div className="misproyectos-card">
+            <section className="misproyectos-hero">
 
-                <h1>
-                    Mis Proyectos
-                </h1>
+                <div>
 
-                <div className="misproyectos-header">
+                    <span className="misproyectos-badge">
+                        Panel Cliente
+                    </span>
+
+                    <h1>
+                        Mis Proyectos
+                    </h1>
+
+                    <p>
+                        Revisa los proyectos que publicaste, consulta sus datos
+                        y explora las propuestas recibidas por freelancers.
+                    </p>
+
+                </div>
+
+                <div className="misproyectos-summary">
 
                     <span>
-                        Proyectos Publicados
+                        Total de proyectos
                     </span>
+
+                    <strong>
+                        {projects.length}
+                    </strong>
+
+                    <p>
+                        Proyectos publicados en ProTask
+                    </p>
+
+                </div>
+
+            </section>
+
+            <section className="misproyectos-content">
+
+                <div className="misproyectos-toolbar">
+
+                    <div>
+                        <h2>
+                            Proyectos Publicados
+                        </h2>
+
+                        <p>
+                            Busca y administra tus proyectos.
+                        </p>
+                    </div>
 
                     <span className="cliente-role">
                         Cliente
@@ -87,10 +126,9 @@ export default function MisProyectos()
 
                 </div>
 
-                {/* BUSCADOR */}
                 <input
                     type="text"
-                    placeholder="Buscar proyectos..."
+                    placeholder="Buscar proyectos por título..."
                     className="search-input"
                     value={search}
                     onChange={(e) =>
@@ -98,63 +136,99 @@ export default function MisProyectos()
                     }
                 />
 
-                {/* TARJETAS */}
                 <div className="project-list">
 
                     {
-                        filteredProjects.map((project) =>
-                        (
-                            <div
-                                className="project-item"
-                                key={project.id}
-                            >
+                        filteredProjects.length === 0
+                        ? (
+                            <div className="empty-projects">
 
-                                <h2>
-                                    {project.title}
-                                </h2>
+                                <h3>
+                                    No se encontraron proyectos
+                                </h3>
 
                                 <p>
-                                    {project.description}
+                                    Intenta buscar con otro título o crea un nuevo proyecto.
                                 </p>
 
-                                <div className="project-footer">
-
-                                    <span>
-                                        📁 {project.category}
-                                    </span>
-
-                                    <span className="price">
-                                        Bs. {project.budget}
-                                    </span>
-
-                                </div>
-
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        gap: "10px",
-                                        marginTop: "15px",
-                                        flexWrap: "wrap",
-                                    }}
+                                <button
+                                    onClick={() =>
+                                        router.push("/menuCliente/crearProyecto")
+                                    }
                                 >
-                                    <button>
-                                        Editar
-                                    </button>
-                                    <button>
-                                        Borrar
-                                    </button>
-                                    <button
-                                        onClick={() =>
-                                            router.push(
-                                                `/menuCliente/verMisProyectos/explorarPropuestas/${project.id}`
-                                            )
-                                        }
-                                    >
-                                        Ver Propuestas
-                                    </button>
-                                </div>
+                                    Crear proyecto
+                                </button>
+
                             </div>
-                        ))
+                        )
+                        : (
+                            filteredProjects.map((project) =>
+                            (
+                                <div
+                                    className="project-item"
+                                    key={project.id}
+                                >
+
+                                    <div className="project-top">
+
+                                        <span className="project-category">
+                                            {project.category}
+                                        </span>
+
+                                        <span className="project-status">
+                                            {project.status}
+                                        </span>
+
+                                    </div>
+
+                                    <h2>
+                                        {project.title}
+                                    </h2>
+
+                                    <p>
+                                        {project.description}
+                                    </p>
+
+                                    <div className="project-footer">
+
+                                        <div>
+                                            <span>
+                                                Presupuesto
+                                            </span>
+
+                                            <strong className="price">
+                                                Bs. {project.budget}
+                                            </strong>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="project-actions">
+
+                                        <button className="edit-button">
+                                            Editar
+                                        </button>
+
+                                        <button className="delete-button">
+                                            Borrar
+                                        </button>
+
+                                        <button
+                                            className="proposal-button"
+                                            onClick={() =>
+                                                router.push(
+                                                    `/menuCliente/verMisProyectos/explorarPropuestas/${project.id}`
+                                                )
+                                            }
+                                        >
+                                            Ver Propuestas
+                                        </button>
+
+                                    </div>
+
+                                </div>
+                            ))
+                        )
                     }
 
                 </div>
@@ -166,11 +240,11 @@ export default function MisProyectos()
                         router.push("/menuCliente")
                     }
                 >
-                    Volver
+                    Volver al panel
                 </button>
 
-            </div>
+            </section>
 
-        </div>
+        </main>
     );
 }

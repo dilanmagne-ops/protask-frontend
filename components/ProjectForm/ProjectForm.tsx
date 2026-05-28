@@ -3,9 +3,11 @@
 import "./ProjectForm.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
 export default function ProjectForm()
 {
     const router = useRouter();
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
@@ -16,10 +18,13 @@ export default function ProjectForm()
     async function handleSubmit(e: React.FormEvent)
     {
         e.preventDefault();
+
         setError("");
+
         try
         {
             const token = localStorage.getItem("token");
+
             const response =
             await fetch("http://localhost:3000/api/projects",
                 {
@@ -45,14 +50,18 @@ export default function ProjectForm()
                     }),
                 }
             );
+
             const data =
             await response.json();
+
             console.log(data);
+
             if (!response.ok)
             {
                 setError(data.message || "Error al crear proyecto");
                 return;
             }
+
             alert("Proyecto publicado correctamente");
             router.push("/menuCliente");
         }
@@ -65,163 +74,234 @@ export default function ProjectForm()
     }
 
     return (
-        <div className="project-form-container">
-            <div className="project-form-card">
-                <h1>
-                    Formulario de Proyecto
-                </h1>
-                <div className="project-header">
-                    <span>
-                        ← Nuevo Proyecto
+        <main className="project-page">
+
+            <section className="project-layout">
+
+                <div className="project-info">
+
+                    <span className="project-badge">
+                        Nuevo Proyecto
                     </span>
-                    <span className="cliente-role">
-                        Cliente
-                    </span>
+
+                    <h1>
+                        Publica un proyecto y encuentra freelancers
+                    </h1>
+
+                    <p>
+                        Describe lo que necesitas, define tu presupuesto
+                        y establece un plazo para recibir propuestas claras.
+                    </p>
+
+                    <div className="project-tips">
+
+                        <div>
+                            <strong>01</strong>
+                            <span>Agrega un título claro y directo.</span>
+                        </div>
+
+                        <div>
+                            <strong>02</strong>
+                            <span>Explica los requisitos principales.</span>
+                        </div>
+
+                        <div>
+                            <strong>03</strong>
+                            <span>Define presupuesto y plazo realista.</span>
+                        </div>
+
+                    </div>
+
                 </div>
-                <form className="project-form"
-                    onSubmit={handleSubmit}
-                >
-                    
-                    <div className="input-group">
-                        <label>
-                            Titulo del proyecto *
-                        </label>
-                        <input
-                            type="text"
-                            value={title}
-                            onChange={(e)=>setTitle(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="input-group">
 
-                        <label>
-                            Descripcion *
-                        </label>
+                <div className="project-form-card">
 
-                        <textarea 
-                            value={description}
-                            onChange={(e)=>setDescription(
-                                e.target.value
-                            )}
-                            required
-                        />
+                    <div className="project-header">
+
+                        <div>
+                            <h2>
+                                Formulario de Proyecto
+                            </h2>
+
+                            <p>
+                                Completa la información para publicar tu solicitud.
+                            </p>
+                        </div>
+
+                        <span className="cliente-role">
+                            Cliente
+                        </span>
 
                     </div>
 
-                    <div className="input-group">
-
-                        <label>
-                            Categoria *
-                        </label>
-
-                        <select
-                            value={category}
-
-                                onChange={(e)=>
-                                setCategory(
-                                    e.target.value
-                                )}
-
-                                required
-                            >
-
-                            <option value="">
-                                Seleccionar...
-                            </option>
-
-                            <option value="Desarrollo Web">
-                                Desarrollo Web
-                            </option>
-
-                            <option value="Diseño Grafico">
-                                Diseño Grafico
-                            </option>
-
-                            <option value="Marketing">
-                                Marketing
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                    <div className="double-inputs">
+                    <form
+                        className="project-form"
+                        onSubmit={handleSubmit}
+                    >
 
                         <div className="input-group">
-
                             <label>
-                                Presupuesto (Bs) *
+                                Título del proyecto *
                             </label>
 
-                            <input 
-                                type="number"
-                                value={budget}
-                                onChange={(e)=>setBudget(e.target.value)}
-                                required 
+                            <input
+                                type="text"
+                                placeholder="Ejemplo: Página web para mi negocio"
+                                value={title}
+                                onChange={(e) =>
+                                    setTitle(e.target.value)
+                                }
+                                required
                             />
                         </div>
 
                         <div className="input-group">
 
                             <label>
-                                Plazo (dias) *
+                                Descripción *
                             </label>
 
-                            <input type="number"
-                                value={deadlineDays}
-
-                                onChange={(e)=>
-                                setDeadlineDays(
-                                    e.target.value
-                                )}
-
+                            <textarea
+                                placeholder="Describe qué necesitas, objetivos, requisitos y entregables esperados."
+                                value={description}
+                                onChange={(e) =>
+                                    setDescription(
+                                        e.target.value
+                                    )
+                                }
                                 required
-                             />
+                            />
 
                         </div>
 
-                    </div>
-                    {error && (
-                        <p>
-                            {error}
-                        </p>
-                    )}
-                    <div className="hitos-box">
+                        <div className="input-group">
 
-                        <p>
-                            Opcional: Dividir en hitos
-                        </p>
+                            <label>
+                                Categoría *
+                            </label>
 
-                        <button type="button">
-                            + Agregar hitos
-                        </button>
+                            <select
+                                value={category}
+                                onChange={(e) =>
+                                    setCategory(
+                                        e.target.value
+                                    )
+                                }
+                                required
+                            >
 
-                    </div>
+                                <option value="">
+                                    Seleccionar categoría...
+                                </option>
 
-                    <div className="project-buttons">
+                                <option value="Desarrollo Web">
+                                    Desarrollo Web
+                                </option>
 
-                        <button
-                            type="button"
-                            className="cancel-button"
-                            onClick={() => router.push("/menuCliente")}
-                        >
-                            Cancelar
-                        </button>
+                                <option value="Diseño Grafico">
+                                    Diseño Gráfico
+                                </option>
 
-                        <button
-                            type="submit"
-                            className="publish-button"
-                        >
-                            Publicar
-                        </button>
+                                <option value="Marketing">
+                                    Marketing
+                                </option>
 
-                    </div>
+                            </select>
 
-                </form>
+                        </div>
 
-            </div>
+                        <div className="double-inputs">
 
-        </div>
+                            <div className="input-group">
+
+                                <label>
+                                    Presupuesto (Bs) *
+                                </label>
+
+                                <input
+                                    type="number"
+                                    placeholder="Ejemplo: 500"
+                                    value={budget}
+                                    onChange={(e) =>
+                                        setBudget(e.target.value)
+                                    }
+                                    required
+                                />
+                            </div>
+
+                            <div className="input-group">
+
+                                <label>
+                                    Plazo en días *
+                                </label>
+
+                                <input
+                                    type="number"
+                                    placeholder="Ejemplo: 7"
+                                    value={deadlineDays}
+                                    onChange={(e) =>
+                                        setDeadlineDays(
+                                            e.target.value
+                                        )
+                                    }
+                                    required
+                                />
+
+                            </div>
+
+                        </div>
+
+                        {error && (
+                            <p className="error-message">
+                                {error}
+                            </p>
+                        )}
+
+                        <div className="hitos-box">
+
+                            <div>
+                                <h3>
+                                    Hitos del proyecto
+                                </h3>
+
+                                <p>
+                                    Opcionalmente puedes dividir el trabajo en etapas.
+                                </p>
+                            </div>
+
+                            <button type="button">
+                                + Agregar hitos
+                            </button>
+
+                        </div>
+
+                        <div className="project-buttons">
+
+                            <button
+                                type="button"
+                                className="cancel-button"
+                                onClick={() =>
+                                    router.push("/menuCliente")
+                                }
+                            >
+                                Cancelar
+                            </button>
+
+                            <button
+                                type="submit"
+                                className="publish-button"
+                            >
+                                Publicar Proyecto
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+        </main>
     );
 }

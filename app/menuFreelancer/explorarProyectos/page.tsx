@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import "./explorarProyectos.css";
 
-type Project =
-{
+type Project = {
     id: string;
     title: string;
     description: string;
@@ -15,222 +14,167 @@ type Project =
     status: string;
 };
 
-export default function ExplorarProyectos()
-{
+export default function ExplorarProyectos() {
     const router = useRouter();
+
     const [projects, setProjects] = useState<Project[]>([]);
-
-    // FILTROS
     const [search, setSearch] = useState("");
-
     const [category, setCategory] = useState("Todas");
-
     const [minBudget, setMinBudget] = useState("");
-
     const [maxBudget, setMaxBudget] = useState("");
 
-    useEffect(() =>
-    {
+    useEffect(() => {
         obtenerProyectos();
     }, []);
 
-    async function obtenerProyectos()
-    {
-        try
-        {
+    async function obtenerProyectos() {
+        try {
             const token = localStorage.getItem("token");
 
-            const response = await fetch(
-                "http://localhost:3000/api/projects",
-                {
-                    headers:
-                    {
-                        Authorization:
-                            `Bearer ${token}`,
-                    },
-                }
-            );
+            const response = await fetch("http://localhost:3000/api/projects", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
 
             const data = await response.json();
 
-            const disponibles =
-                data.data.filter(
-                    (project: Project) =>
-                        project.status === "open"
-                );
+            const disponibles = data.data.filter(
+                (project: Project) => project.status === "open"
+            );
 
             setProjects(disponibles);
-        }
-        catch (error)
-        {
+        } catch (error) {
             console.error(error);
         }
     }
 
-    // FILTRADO
-    const filteredProjects =
-        projects.filter((project) =>
-        {
-            const coincideBusqueda =
-                project.title
-                    .toLowerCase()
-                    .includes(search.toLowerCase());
+    const filteredProjects = projects.filter((project) => {
+        const coincideBusqueda =
+            project.title.toLowerCase().includes(search.toLowerCase()) ||
+            project.description.toLowerCase().includes(search.toLowerCase());
 
-            const coincideCategoria =
-                category === "Todas" ||
-                project.category === category;
+        const coincideCategoria =
+            category === "Todas" || project.category === category;
 
-            const coincideMin =
-                minBudget === "" ||
-                project.budget >= Number(minBudget);
+        const coincideMin =
+            minBudget === "" || project.budget >= Number(minBudget);
 
-            const coincideMax =
-                maxBudget === "" ||
-                project.budget <= Number(maxBudget);
+        const coincideMax =
+            maxBudget === "" || project.budget <= Number(maxBudget);
 
-            return (
-                coincideBusqueda &&
-                coincideCategoria &&
-                coincideMin &&
-                coincideMax
-            );
-        });
+        return coincideBusqueda && coincideCategoria && coincideMin && coincideMax;
+    });
 
     return (
-        <div className="freelancer-page">
-
-            <div className="freelancer-card">
-
-                <h1>
-                    Explorar Proyectos
-                </h1>
-
-                {/* BUSCADOR */}
-                <div className="search-box">
-
-                    <span>
-                        🔍
-                    </span>
-
-                    <input
-                        type="text"
-                        placeholder="Buscar proyectos..."
-                        value={search}
-                        onChange={(e) =>
-                            setSearch(e.target.value)
-                        }
-                    />
-
-                </div>
-
-                {/* FILTROS */}
-                <div className="filters-box">
-
-                    <h3>
-                        Filtros
-                    </h3>
-
-                    <label>
-                        Categoría
-                    </label>
-
-                    <select
-                        value={category}
-                        onChange={(e) =>
-                            setCategory(e.target.value)
-                        }
+        <div className="explore-page">
+            <main className="explore-container">
+                <section className="explore-header">
+                    <button
+                        className="back-button"
+                        onClick={() => router.push("/menuFreelancer")}
                     >
-                        <option>
-                            Todas
-                        </option>
+                        ← Volver
+                    </button>
 
-                        <option>
-                            Desarrollo Web
-                        </option>
+                    <span className="explore-badge">Freelancer</span>
 
-                        <option>
-                            Diseño
-                        </option>
+                    <h1>Explorar Proyectos</h1>
 
-                    </select>
+                    <p>
+                        Encuentra proyectos disponibles, filtra por categoría o presupuesto
+                        y envía una propuesta profesional.
+                    </p>
+                </section>
 
-                    <label>
-                        Presupuesto
-                    </label>
+                <section className="explore-layout">
+                    <aside className="filters-panel">
+                        <h2>Filtros</h2>
 
-                    <div className="budget-row">
+                        <label>Buscar proyecto</label>
+                        <div className="search-box">
+                            <span>🔍</span>
+                            <input
+                                type="text"
+                                placeholder="Buscar por título o descripción..."
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                            />
+                        </div>
 
-                        <input
-                            type="number"
-                            placeholder="Min"
-                            value={minBudget}
-                            onChange={(e) =>
-                                setMinBudget(e.target.value)
-                            }
-                        />
+                        <label>Categoría</label>
+                        <select
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                        >
+                            <option>Todas</option>
+                            <option>Desarrollo Web</option>
+                            <option>Diseño</option>
+                        </select>
 
-                        <input
-                            type="number"
-                            placeholder="Max"
-                            value={maxBudget}
-                            onChange={(e) =>
-                                setMaxBudget(e.target.value)
-                            }
-                        />
+                        <label>Presupuesto</label>
+                        <div className="budget-row">
+                            <input
+                                type="number"
+                                placeholder="Min"
+                                value={minBudget}
+                                onChange={(e) => setMinBudget(e.target.value)}
+                            />
 
-                    </div>
+                            <input
+                                type="number"
+                                placeholder="Max"
+                                value={maxBudget}
+                                onChange={(e) => setMaxBudget(e.target.value)}
+                            />
+                        </div>
 
-                </div>
+                        <div className="results-box">
+                            <strong>{filteredProjects.length}</strong>
+                            <span>proyectos encontrados</span>
+                        </div>
+                    </aside>
 
-                {/* PROJECT CARDS */}
-                <div className="project-list">
-
-                    {
-                        filteredProjects.map((project) =>
-                        (
-                            <div
-                                className="project-card"
-                                key={project.id}
-                            >
-
-                                <h3>
-                                    {project.title}
-                                </h3>
-
-                                <p>
-                                    {project.description}
-                                </p>
-
-                                <div className="project-footer">
-
-                                    <span>
-                                        📁 {project.category}
-                                    </span>
-
-                                    <strong>
-                                        Bs. {project.budget}
-                                    </strong>
-
-                                </div>
-
-                                <button
-                                    onClick={() =>
-                                        router.push(
-                                            `/menuFreelancer/explorarProyectos/enviarPropuesta/${project.id}`
-                                        )
-                                    }
-                                >
-                                    Ver detalle
-                                </button>
-
+                    <section className="projects-section">
+                        {filteredProjects.length === 0 ? (
+                            <div className="empty-projects">
+                                <h3>No se encontraron proyectos</h3>
+                                <p>Prueba cambiando los filtros de búsqueda.</p>
                             </div>
-                        ))
-                    }
+                        ) : (
+                            <div className="project-grid">
+                                {filteredProjects.map((project) => (
+                                    <div className="project-card" key={project.id}>
+                                        <div className="project-top">
+                                            <span>{project.category}</span>
+                                            <strong>Bs. {project.budget}</strong>
+                                        </div>
 
-                </div>
+                                        <h3>{project.title}</h3>
 
-            </div>
+                                        <p>{project.description}</p>
 
+                                        <div className="project-info">
+                                            <span>⏱ {project.deadlineDays} días</span>
+                                            <span>Estado: Abierto</span>
+                                        </div>
+
+                                        <button
+                                            onClick={() =>
+                                                router.push(
+                                                    `/menuFreelancer/explorarProyectos/enviarPropuesta/${project.id}`
+                                                )
+                                            }
+                                        >
+                                            Ver detalle
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </section>
+                </section>
+            </main>
         </div>
     );
 }
