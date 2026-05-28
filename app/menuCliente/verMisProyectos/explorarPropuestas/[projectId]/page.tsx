@@ -1,35 +1,50 @@
 "use client";
 
-import "./MisProyectos.css";
-
-import { useRouter } from "next/navigation";
+import "./explorarPropuestas.css";
 
 import { useEffect, useState } from "react";
 
-type Project =
+import { useParams, useRouter } from "next/navigation";
+
+type Proposal =
 {
     id: string;
-    title: string;
+
+    offeredPrice: number;
+
+    estimatedDays: number;
+
     description: string;
-    category: string;
-    budget: number;
+
     status: string;
+
+    freelancer:
+    {
+        name: string;
+    };
 };
 
-export default function MisProyectos()
+export default function VerPropuestasPage()
 {
     const router = useRouter();
 
-    const [projects, setProjects] = useState<Project[]>([]);
+    const params = useParams();
 
-    const [search, setSearch] = useState("");
+    const projectId =
+        params.projectId;
+
+    const [proposals, setProposals] =
+        useState<Proposal[]>([]);
+
+    const [search, setSearch] =
+        useState("");
 
     useEffect(() =>
     {
-        obtenerMisProyectos();
+        obtenerPropuestas();
     }, []);
 
-    async function obtenerMisProyectos()
+    async function obtenerPropuestas()
     {
         try
         {
@@ -37,7 +52,7 @@ export default function MisProyectos()
                 localStorage.getItem("token");
 
             const response = await fetch(
-                "http://localhost:3000/api/projects",
+                `http://localhost:3000/api/proposals/project/${projectId}`,
                 {
                     headers:
                     {
@@ -47,21 +62,62 @@ export default function MisProyectos()
                 }
             );
 
-            const data = await response.json();
+            const data =
+                await response.json();
 
-            console.log(data);
+            console.log(JSON.stringify(data.data[0], null, 2));
 
-            setProjects(data.data);
+            setProposals(data.data);
         }
         catch (error)
         {
             console.error(error);
         }
     }
+    async function aceptarPropuesta(proposalId: string)
+    {
+        try
+        {
+            const token =
+                localStorage.getItem("token");
 
-    const filteredProjects =
-        projects.filter((project) =>
-            project.title
+            const response = await fetch(
+                `http://localhost:3000/api/proposals/${proposalId}/accept`,
+                {
+                    method: "PATCH",
+
+                    headers:
+                    {
+                        Authorization:
+                            `Bearer ${token}`,
+                    },
+                }
+            );
+
+            const data =
+                await response.json();
+
+            console.log(data);
+
+            if (response.ok)
+            {
+                alert("Propuesta aceptada correctamente");
+
+                obtenerPropuestas();
+            }
+            else
+            {
+                alert(data.messages?.[0]?.description);
+            }
+        }
+        catch (error)
+        {
+            console.error(error);
+        }
+    }
+    const filteredProposals =
+        proposals.filter((proposal) =>
+            proposal.description
                 .toLowerCase()
                 .includes(search.toLowerCase())
         );
@@ -72,13 +128,13 @@ export default function MisProyectos()
             <div className="misproyectos-card">
 
                 <h1>
-                    Mis Proyectos
+                    Propuestas Recibidas
                 </h1>
 
                 <div className="misproyectos-header">
 
                     <span>
-                        Proyectos Publicados
+                        Freelancers interesados
                     </span>
 
                     <span className="cliente-role">
@@ -87,10 +143,9 @@ export default function MisProyectos()
 
                 </div>
 
-                {/* BUSCADOR */}
                 <input
                     type="text"
-                    placeholder="Buscar proyectos..."
+                    placeholder="Buscar propuestas..."
                     className="search-input"
                     value={search}
                     onChange={(e) =>
@@ -98,37 +153,36 @@ export default function MisProyectos()
                     }
                 />
 
-                {/* TARJETAS */}
                 <div className="project-list">
 
                     {
-                        filteredProjects.map((project) =>
+                        filteredProposals.map((proposal) =>
                         (
                             <div
                                 className="project-item"
-                                key={project.id}
+                                key={proposal.id}
                             >
-
                                 <h2>
-                                    {project.title}
+                                    {proposal.freelancer.name}
                                 </h2>
-
                                 <p>
-                                    {project.description}
+                                    {proposal.description}
                                 </p>
 
                                 <div className="project-footer">
 
                                     <span>
-                                        📁 {project.category}
+                                        ⏳ {proposal.estimatedDays} días
                                     </span>
 
                                     <span className="price">
-                                        Bs. {project.budget}
+                                        Bs. {proposal.offeredPrice}
                                     </span>
 
                                 </div>
-
+                                <p>
+                                    Estado: {proposal.status}
+                                </p>
                                 <div
                                     style={{
                                         display: "flex",
@@ -137,22 +191,19 @@ export default function MisProyectos()
                                         flexWrap: "wrap",
                                     }}
                                 >
+
                                     <button>
-                                        Editar
+                                        Ver Perfil
                                     </button>
-                                    <button>
-                                        Borrar
-                                    </button>
+
                                     <button
-                                        onClick={() =>
-                                            router.push(
-                                                `/menuCliente/verMisProyectos/explorarPropuestas/${project.id}`
-                                            )
-                                        }
+                                    onClick={() => aceptarPropuesta(proposal.id)}
                                     >
-                                        Ver Propuestas
+                                        Aceptar
                                     </button>
+
                                 </div>
+
                             </div>
                         ))
                     }
@@ -163,7 +214,7 @@ export default function MisProyectos()
                     className="back-button"
 
                     onClick={() =>
-                        router.push("/menuCliente")
+                        router.back()
                     }
                 >
                     Volver

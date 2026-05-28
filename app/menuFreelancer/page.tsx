@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+
 import Navbar from "../../components/Navbar/Navbar";
 
 import "./MenuFreelancer.css";
@@ -92,7 +93,7 @@ export default function MenuFreelancer()
                     <button
                         onClick={() =>
                             router.push(
-                            "/menuFreelancer/verMisPropuestas"
+                            "/menuFreelancer/misPropuestas"
                             )
                         }
                     >
