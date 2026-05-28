@@ -68,8 +68,6 @@ export default function MisPropuestas()
 
             const data = await response.json();
 
-            console.log(data);
-
             setProposals(data.data);
         }
         catch (error)
@@ -120,110 +118,141 @@ export default function MisPropuestas()
             console.error(error);
         }
     }
+
     return (
-        <div className="freelancer-page">
+        <div className="mispropuestas-page">
 
-            <div className="freelancer-card">
+            <main className="mispropuestas-container">
 
-                <h1>
-                    Mis Propuestas
-                </h1>
+                <section className="mispropuestas-header">
 
-                {/* BUSCADOR */}
-                <div className="search-box">
+                    <button
+                        className="back-button"
+                        onClick={() =>
+                            router.push("/menuFreelancer")
+                        }
+                    >
+                        ← Volver
+                    </button>
 
-                    <span>
-                        🔍
+                    <span className="mispropuestas-badge">
+                        Freelancer
                     </span>
 
-                    <input
-                        type="text"
-                        placeholder="Buscar propuesta..."
-                        value={search}
-                        onChange={(e) =>
-                            setSearch(e.target.value)
-                        }
-                    />
+                    <h1>
+                        Mis Propuestas
+                    </h1>
 
-                </div>
+                    <p>
+                        Revisa las propuestas enviadas, consulta su estado
+                        y administra tus postulaciones.
+                    </p>
 
-                {/* CARDS */}
-                <div className="project-list">
+                    <div className="top-search">
 
-                    {
-                        filteredProposals.map((proposal) =>
+                        <div className="search-box">
+
+                            <span>
+                                🔍
+                            </span>
+
+                            <input
+                                type="text"
+                                placeholder="Buscar propuesta..."
+                                value={search}
+                                onChange={(e) =>
+                                    setSearch(e.target.value)
+                                }
+                            />
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                {
+                    filteredProposals.length === 0
+                        ?
                         (
-                            <div
-                                className="project-card"
-                                key={proposal.id}
-                            >
+                            <div className="empty-proposals">
 
                                 <h3>
-                                    {proposal.project.title}
+                                    No tienes propuestas
                                 </h3>
 
                                 <p>
-                                    {proposal.description}
+                                    Cuando envíes propuestas aparecerán aquí.
                                 </p>
 
-                                <div className="project-footer">
+                            </div>
+                        )
+                        :
+                        (
+                            <div className="proposals-grid">
 
-                                    <span>
-                                        📁 {proposal.project.category}
-                                    </span>
+                                {
+                                    filteredProposals.map((proposal) =>
+                                    (
+                                        <div
+                                            className="proposal-card"
+                                            key={proposal.id}
+                                        >
 
-                                    <strong>
-                                        Bs. {proposal.offeredPrice}
-                                    </strong>
+                                            <div className="proposal-top">
 
-                                </div>
+                                                <span className="proposal-category">
+                                                    {proposal.project.category}
+                                                </span>
 
-                                <div
-                                    style={{
-                                        marginTop: "10px",
-                                    }}
-                                >
+                                                <strong className="proposal-price">
+                                                    Bs. {proposal.offeredPrice}
+                                                </strong>
 
-                                    <strong>
-                                        Estado:
-                                    </strong>
+                                            </div>
 
-                                    {" "}
-                                    {proposal.status}
+                                            <h3>
+                                                {proposal.project.title}
+                                            </h3>
 
-                                </div>
+                                            <p>
+                                                {proposal.description}
+                                            </p>
 
-                                <div
-                                    style={{
-                                        marginTop: "10px",
-                                    }}
-                                >
+                                            <div className="proposal-info">
 
-                                    ⏱️ {proposal.estimatedDays}
-                                    {" "}días
+                                                <span>
+                                                    ⏱ {proposal.estimatedDays} días
+                                                </span>
 
-                                </div>
+                                                <span>
+                                                    Estado: {proposal.status}
+                                                </span>
 
-                                <div className="proposal-buttons">
+                                            </div>
 
-                                    <button
-                                        className="delete-btn"
-                                        onClick={() =>
-                                            borrarPropuesta(proposal.id)
-                                        }
-                                    >
-                                        Borrar
-                                    </button>
+                                            <div className="proposal-buttons">
 
-                                </div>
+                                                <button
+                                                    className="delete-btn"
+                                                    onClick={() =>
+                                                        borrarPropuesta(proposal.id)
+                                                    }
+                                                >
+                                                    Borrar propuesta
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+                                    ))
+                                }
 
                             </div>
-                        ))
-                    }
+                        )
+                }
 
-                </div>
-
-            </div>
+            </main>
 
         </div>
     );

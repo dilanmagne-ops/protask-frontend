@@ -1,67 +1,86 @@
 import Navbar from "../components/Navbar/Navbar";
-import ProductCard from "../components/ProductCard/ProductCard";
 import "./Home.css";
-
 import Link from "next/link";
 
-async function getProducts()
+export default function Home()
 {
-    const response = await fetch("https://dummyjson.com/products");
-
-    if (!response.ok)
-    {
-        throw new Error("Error al obtener productos");
-    }
-
-    const data = await response.json();
-
-    return data.products;
-}
-
-export default async function Home()
-{
-    const products = await getProducts();
-
     return (
         <main className="home-page">
 
-            {/* NAVBAR */}
             <Navbar
                 title="ProTask"
                 items={[
-                    "¿Buscas trabajo freelance?",
-                    "¿Necesitas ayuda para tu proyecto?",
+                    "Freelancers",
+                    "Clientes",
                     "Pagos seguros"
                 ]}
             />
 
-            {/* HERO */}
             <section className="hero-section">
 
-                <h1 className="hero-title">
-                    Bienvenido a ProTask
-                </h1>
+                <div className="hero-content">
 
-                <p className="hero-subtitle">
-                    Conecta freelancers y clientes
-                    de forma segura y profesional.
-                </p>
+                    <span className="hero-badge">
+                        Plataforma freelance segura
+                    </span>
 
-                <div className="buttons-container">
+                    <h1 className="hero-title">
+                        Conecta con freelancers y clientes de forma profesional
+                    </h1>
 
-                    <Link href="/login">
-                        <button className="login-home-button">
-                            Iniciar Sesion
-                        </button>
-                    </Link>
+                    <p className="hero-subtitle">
+                        Publica proyectos, encuentra talento y trabaja con mayor confianza usando ProTask.
+                    </p>
 
-                    <Link href="/register">
-                        <button className="register-home-button">
-                            Registrarse
-                        </button>
-                    </Link>
+                    <div className="buttons-container">
+
+                        <Link href="/login">
+                            <button className="login-home-button">
+                                Iniciar Sesión
+                            </button>
+                        </Link>
+
+                        <Link href="/register">
+                            <button className="register-home-button">
+                                Crear Cuenta
+                            </button>
+                        </Link>
+
+                    </div>
+
                 </div>
+
+                <div className="hero-card">
+
+                    <h2>
+                        ¿Qué puedes hacer?
+                    </h2>
+
+                    <div className="feature-item">
+                        <span>01</span>
+                        <p>
+                            Publicar proyectos con requisitos claros.
+                        </p>
+                    </div>
+
+                    <div className="feature-item">
+                        <span>02</span>
+                        <p>
+                            Buscar freelancers según habilidades.
+                        </p>
+                    </div>
+
+                    <div className="feature-item">
+                        <span>03</span>
+                        <p>
+                            Trabajar con pagos más seguros.
+                        </p>
+                    </div>
+
+                </div>
+
             </section>
+
         </main>
     );
 }

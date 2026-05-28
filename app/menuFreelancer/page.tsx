@@ -1,114 +1,122 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
-
-import Navbar from "../../components/Navbar/Navbar";
-
 import "./MenuFreelancer.css";
 
-type User =
-{
-    id: string;
-    name: string;
-    email: string;
-    role: string;
-};
+export default function MenuFreelancer() {
 
-export default function MenuFreelancer()
-{
     const router = useRouter();
 
-    const [user, setUser] =
-    useState<User | null>(null);
-
-    useEffect(() =>
-    {
-        const userGuardado =
-        localStorage.getItem("user");
-
-        if (!userGuardado)
-        {
-            router.push("/login");
-            return;
-        }
-
-        const userParseado =
-        JSON.parse(userGuardado);
-
-        if (userParseado.role !== "freelancer")
-        {
-            router.push("/login");
-            return;
-        }
-
-        setUser(userParseado);
-
-    }, [router]);
-
-    function cerrarSesion()
-    {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-
-        router.push("/login");
-    }
-
     return (
-        <div>
+        <div className="freelancer-page">
 
-            <Navbar
-                title={`Bienvenido ${user?.name}`}
-                items={[
-                    "Explorar Proyectos",
-                    "Mis Propuestas",
-                ]}
-            />
+            <main className="freelancer-content">
 
-            <div className="freelancer-container">
+                <section className="freelancer-hero">
 
-                <h1>
-                    Panel Freelancer
-                </h1>
+                    <div className="freelancer-info">
 
-                <p>
-                    Encuentra proyectos,
-                    envía propuestas
-                    y administra tus trabajos.
-                </p>
+                        <span>Panel Freelancer</span>
 
-                <div className="freelancer-buttons">
+                        <h1>
+                            Encuentra proyectos y envía propuestas profesionales
+                        </h1>
 
-                    <button
-                        onClick={() =>
-                            router.push(
-                            "/menuFreelancer/explorarProyectos"
-                            )
-                        }
-                    >
-                        Explorar Proyectos
-                    </button>
+                        <p>
+                            Explora proyectos disponibles, postúlate con propuestas claras
+                            y administra tus oportunidades dentro de ProTask.
+                        </p>
 
-                    <button
-                        onClick={() =>
-                            router.push(
-                            "/menuFreelancer/misPropuestas"
-                            )
-                        }
-                    >
-                        Mis Propuestas
-                    </button>
+                    </div>
 
-                    <button
-                        onClick={cerrarSesion}
-                    >
-                        Cerrar Sesión
-                    </button>
+                    <div className="freelancer-profile-card">
 
-                </div>
+                        <div className="freelancer-avatar">
+                            D
+                        </div>
 
-            </div>
+                        <h3>david</h3>
+
+                        <p>nose123@ucb.edu</p>
+
+                        <div className="freelancer-role">
+                            Rol: Freelancer
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <section className="freelancer-cards">
+
+                    <div className="freelancer-card">
+
+                        <div className="card-number">
+                            01
+                        </div>
+
+                        <h3>Explorar Proyectos</h3>
+
+                        <p>
+                            Busca proyectos publicados por clientes y encuentra nuevas oportunidades.
+                        </p>
+
+                        <button
+                            onClick={() =>
+                                router.push("/menuFreelancer/explorarProyectos")
+                            }
+                        >
+                            Explorar
+                        </button>
+
+                    </div>
+
+                    <div className="freelancer-card">
+
+                        <div className="card-number">
+                            02
+                        </div>
+
+                        <h3>Mis Propuestas</h3>
+
+                        <p>
+                            Revisa las propuestas que enviaste y consulta su estado.
+                        </p>
+
+                        <button
+                            onClick={() =>
+                                router.push("/menuFreelancer/misPropuestas")
+                            }
+                        >
+                            Ver propuestas
+                        </button>
+
+                    </div>
+
+                    <div className="freelancer-card">
+
+                        <div className="card-number">
+                            03
+                        </div>
+
+                        <h3>Cerrar Sesión</h3>
+
+                        <p>
+                            Sal de tu cuenta de freelancer de forma segura.
+                        </p>
+
+                        <button
+                            className="logout-button"
+                            onClick={() => router.push("/login")}
+                        >
+                            Cerrar sesión
+                        </button>
+
+                    </div>
+
+                </section>
+
+            </main>
 
         </div>
     );

@@ -59,12 +59,6 @@ export default function LoginForm() {
                 return;
             }
 
-            console.log(
-                "LOGIN EXITOSO"
-            );
-
-            console.log(data);
-
             const token =
             data.data.token;
 
@@ -135,126 +129,216 @@ export default function LoginForm() {
 
     return (
 
-    <div className=
-    "login-container">
+    <main className=
+    "login-page">
 
-        <h1 className=
-        "title">
+        <section className=
+        "login-layout">
 
-            Iniciar Sesión
+            <div className=
+            "login-info">
 
-        </h1>
-
-        <div className=
-        "logo-box">
-
-            LOGO
-
-        </div>
-
-        <form
-        className=
-        "login-form"
-
-        onSubmit=
-        {handleLogin}
-        >
-
-        <div className=
-        "input-group">
-
-            <label>
-                Correo Electrónico
-            </label>
-
-            <input
-                type="email"
-
-                placeholder=
-                "Ingrese su correo"
-
-                value={email}
-
-                onChange={(e)=>
-                setEmail(
-                e.target.value
-                )}
-
-                required
-            />
-
-        </div>
-
-        <div className=
-        "input-group">
-
-            <label>
-                Contraseña
-            </label>
-
-            <input
-                type="password"
-
-                placeholder=
-                "Ingrese su contraseña"
-
-                value={password}
-
-                onChange={(e)=>
-                setPassword(
-                e.target.value
-                )}
-
-                required
-            />
-
-        </div>
-
-        {error && (
-
-        <p className=
-        "error-message">
-
-            {error}
-
-        </p>
-
-        )}
-
-        <button
-            type="submit"
-
-            className=
-            "login-button"
-        >
-
-            Iniciar Sesión
-
-        </button>
-
-        <Link
-        href="/"
-
-        className=
-        "back-link"
-        >
-
-            <button
-                type="button"
-
+                <Link
+                href="/"
                 className=
-                "back-button"
-            >
+                "brand-link"
+                >
 
-                Volver al menú
+                    ProTask
 
-            </button>
+                </Link>
 
-        </Link>
+                <span className=
+                "login-badge">
 
-        </form>
+                    Plataforma freelance segura
 
-    </div>
+                </span>
+
+                <h1 className=
+                "info-title">
+
+                    Gestiona tus proyectos con mayor confianza
+
+                </h1>
+
+                <p className=
+                "info-text">
+
+                    Inicia sesión para publicar proyectos, enviar propuestas,
+                    revisar entregas y trabajar de forma profesional.
+
+                </p>
+
+                <div className=
+                "info-stats">
+
+                    <div>
+                        <strong>01</strong>
+                        <span>Proyectos claros</span>
+                    </div>
+
+                    <div>
+                        <strong>02</strong>
+                        <span>Freelancers verificados</span>
+                    </div>
+
+                    <div>
+                        <strong>03</strong>
+                        <span>Pagos más seguros</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div className=
+            "login-card">
+
+                <div className=
+                "login-header">
+
+                    <div className=
+                    "logo-box">
+
+                        PT
+
+                    </div>
+
+                    <div>
+                        <h2 className=
+                        "title">
+
+                            Iniciar Sesión
+
+                        </h2>
+
+                        <p className=
+                        "login-subtitle">
+
+                            Ingresa tus datos para continuar.
+
+                        </p>
+                    </div>
+
+                </div>
+
+                <form
+                className=
+                "login-form"
+
+                onSubmit=
+                {handleLogin}
+                >
+
+                    <div className=
+                    "input-group">
+
+                        <label>
+                            Correo Electrónico
+                        </label>
+
+                        <input
+                            type="email"
+
+                            placeholder=
+                            "ejemplo@correo.com"
+
+                            value={email}
+
+                            onChange={(e)=>
+                            setEmail(
+                            e.target.value
+                            )}
+
+                            required
+                        />
+
+                    </div>
+
+                    <div className=
+                    "input-group">
+
+                        <label>
+                            Contraseña
+                        </label>
+
+                        <input
+                            type="password"
+
+                            placeholder=
+                            "Ingresa tu contraseña"
+
+                            value={password}
+
+                            onChange={(e)=>
+                            setPassword(
+                            e.target.value
+                            )}
+
+                            required
+                        />
+
+                    </div>
+
+                    {error && (
+
+                    <p className=
+                    "error-message">
+
+                        {error}
+
+                    </p>
+
+                    )}
+
+                    <button
+                        type="submit"
+
+                        className=
+                        "login-button"
+                    >
+
+                        Iniciar Sesión
+
+                    </button>
+
+                    <div className=
+                    "login-footer">
+
+                        <p>
+                            ¿No tienes una cuenta?
+                        </p>
+
+                        <Link
+                        href="/register"
+                        className=
+                        "register-link"
+                        >
+
+                            Crear cuenta
+
+                        </Link>
+
+                    </div>
+
+                    <Link
+                    href="/"
+                    className=
+                    "back-link"
+                    >
+
+                        Volver al inicio
+
+                    </Link>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
 
     );
 
