@@ -1,160 +1,130 @@
-.freelancer-page {
-    min-height: 100vh;
-    background: #f4f7fb;
+body {
+    background-color: #f8fafc;
+    margin: 0;
+
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.freelancer-container {
+
     display: flex;
-    justify-content: center;
-    padding: 40px 20px;
-    font-family: Arial, sans-serif;
-}
 
-.freelancer-card {
-    width: 420px;
-    background: white;
-    border: 1px solid #d7dde8;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-}
-
-.freelancer-card h1 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 22px;
-    color: #111827;
-}
-
-.freelancer-tabs {
-    background: #e8f1ff;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
-    overflow: hidden;
-}
-
-.freelancer-tabs button {
-    border: none;
-    background: #dbeafe;
-    color: #1e3a8a;
-    font-weight: bold;
-    padding: 12px;
-    cursor: pointer;
-}
-
-.freelancer-tabs span {
-    padding-right: 15px;
-    color: #64748b;
-    font-size: 14px;
-}
-
-.search-box {
-    display: flex;
-    align-items: center;
-    border: 2px solid #60a5fa;
-    border-radius: 8px;
-    padding: 0 12px;
-    margin-bottom: 18px;
-    background: white;
-}
-
-.search-box input {
-    width: 100%;
-    border: none;
-    outline: none;
-    padding: 13px 8px;
-    font-size: 14px;
-}
-
-.filters-box {
-    border: 1px solid #d1d5db;
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 20px;
-    background: #ffffff;
-}
-
-.filters-box h3 {
-    margin-bottom: 12px;
-    color: #111827;
-}
-
-.filters-box label {
-    display: block;
-    margin: 10px 0 6px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #475569;
-}
-
-.filters-box input,
-.filters-box select {
-    width: 100%;
-    padding: 11px;
-    border: 1px solid #cbd5e1;
-    border-radius: 7px;
-    outline: none;
-    background: white;
-}
-
-.budget-row {
-    display: flex;
-    gap: 10px;
-}
-
-.project-list {
-    display: flex;
     flex-direction: column;
-    gap: 14px;
-}
 
-.project-card {
-    border: 1px solid #d1d5db;
-    border-radius: 10px;
-    padding: 16px;
-    background: white;
-    transition: 0.2s;
-}
-
-.project-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
-}
-
-.project-card h3 {
-    color: #111827;
-    margin-bottom: 6px;
-}
-
-.project-card p {
-    color: #64748b;
-    font-size: 14px;
-    margin-bottom: 12px;
-}
-
-.project-footer {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 14px;
-    font-size: 14px;
+    justify-content: center;
+
+    text-align: center;
+
+    padding-top: 100px;
+
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.project-footer strong {
-    color: #16a34a;
+/* TITULO */
+.freelancer-container h1 {
+
+    font-size: 52px;
+
+    font-weight: 800;
+
+    color: #0f172a;
+
+    margin-bottom: 20px;
 }
 
-.project-card button {
-    width: 100%;
-    padding: 10px;
+/* TEXTO */
+.freelancer-container p {
+
+    font-size: 20px;
+
+    color: #475569;
+
+    max-width: 700px;
+
+    line-height: 1.6;
+
+    margin-bottom: 50px;
+}
+
+/* CONTENEDOR BOTONES */
+.freelancer-buttons {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 20px;
+}
+
+/* BOTONES GENERALES */
+.freelancer-buttons button {
+
+    padding: 15px 28px;
+
     border: none;
-    border-radius: 8px;
-    background: #2563eb;
-    color: white;
+
+    border-radius: 12px;
+
+    font-size: 16px;
+
     font-weight: bold;
+
     cursor: pointer;
+
+    transition: 0.3s ease;
 }
 
-.project-card button:hover {
-    background: #1d4ed8;
+/* BOTON EXPLORAR PROYECTOS */
+.freelancer-buttons button:nth-child(1) {
+
+    background-color: #2d6cff;
+
+    color: white;
+}
+
+.freelancer-buttons button:nth-child(1):hover {
+
+    background-color: #1d4ed8;
+
+    transform: translateY(-2px);
+}
+
+/* BOTON MIS PROPUESTAS */
+.freelancer-buttons button:nth-child(2) {
+
+    background-color: #16a34a;
+
+    color: white;
+}
+
+.freelancer-buttons button:nth-child(2):hover {
+
+    background-color: #15803d;
+
+    transform: translateY(-2px);
+}
+
+/* BOTON CERRAR SESION */
+.freelancer-buttons button:nth-child(3) {
+
+    background-color: #ef4444;
+
+    color: white;
+}
+
+.freelancer-buttons button:nth-child(3):hover {
+
+    background-color: #dc2626;
+
+    transform: translateY(-2px);
 }

@@ -78,7 +78,7 @@ export default function MenuCliente()
 
                     <button
                         onClick={() =>
-                            router.push("/menuCliente/MisProyectos")
+                            router.push("/menuCliente/verMisProyectos")
                         }
                     >
                         Mis Proyectos

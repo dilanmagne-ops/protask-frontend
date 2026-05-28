@@ -66,10 +66,10 @@ export default function LoginForm() {
             console.log(data);
 
             const token =
-            data.token;
+            data.data.token;
 
             const user =
-            data.user;
+            data.data.user;
 
             localStorage.setItem(
                 "token",
