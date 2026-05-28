@@ -99,6 +99,28 @@ export default function MenuFreelancer() {
                             03
                         </div>
 
+                        <h3>Mis Trabajos</h3>
+
+                        <p>
+                            Consulta los trabajos que tienes actualmente asignados.
+                        </p>
+
+                        <button
+                            onClick={() =>
+                                router.push("/menuFreelancer/verMisTrabajos")
+                            }
+                        >
+                            Ver trabajos
+                        </button>
+
+                    </div>
+
+                    <div className="freelancer-card">
+
+                        <div className="card-number">
+                            04
+                        </div>
+
                         <h3>Cerrar Sesión</h3>
 
                         <p>
