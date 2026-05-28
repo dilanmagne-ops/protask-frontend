@@ -99,7 +99,13 @@ export default function MenuFreelancer()
                     >
                         Mis Propuestas
                     </button>
-
+                    <button
+                        onClick={() =>
+                            router.push("/menuFreelancer/verMisTrabajos")
+                        }
+                    >
+                        Mis Trabajos
+                    </button>
                     <button
                         onClick={cerrarSesion}
                     >
