@@ -46,9 +46,7 @@ export default function VerMisTrabajos() {
 
             const data = await response.json();
 
-            console.log(data);
-
-            // 🔥 SOLO ACEPTADAS = TRABAJOS
+            // SOLO TRABAJOS ACEPTADOS
             const aceptadas = data.data.filter(
                 (proposal: Proposal) => proposal.status === "accepted"
             );
@@ -66,67 +64,116 @@ export default function VerMisTrabajos() {
     );
 
     return (
-        <div className="freelancer-page">
-            <div className="freelancer-card">
+        <div className="mispropuestas-page">
 
-                <h1>Mis Trabajos</h1>
+            <main className="mispropuestas-container">
 
-                {/* BUSCADOR */}
-                <div className="search-box">
-                    <span>🔍</span>
-                    <input
-                        type="text"
-                        placeholder="Buscar trabajo..."
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                </div>
+                {/* HEADER estilo MisPropuestas */}
+                <section className="mispropuestas-header">
 
-                {/* CARDS */}
-                <div className="project-list">
+                    <button
+                        className="back-button"
+                        onClick={() =>
+                            router.push("/menuFreelancer")
+                        }
+                    >
+                        ← Volver
+                    </button>
 
-                    {filteredProposals.map((proposal) => (
-                        <div className="project-card" key={proposal.id}>
+                    <span className="mispropuestas-badge">
+                        Freelancer
+                    </span>
 
-                            <h3>{proposal.project.title}</h3>
+                    <h1>Mis Trabajos</h1>
 
-                            <p>{proposal.project.description}</p>
+                    <p>
+                        Aquí puedes ver los trabajos que fueron aceptados
+                        y que ahora forman parte de tus proyectos activos.
+                    </p>
 
-                            <div className="project-footer">
-                                <span>
-                                    📁 {proposal.project.category}
-                                </span>
-
-                                <strong>
-                                    Bs. {proposal.offeredPrice}
-                                </strong>
-                            </div>
-
-                            <div style={{ marginTop: "10px" }}>
-                                <strong>Estado:</strong>{" "}
-                                {proposal.status}
-                            </div>
-
-                            <div style={{ marginTop: "10px" }}>
-                                ⏱️ {proposal.estimatedDays} días
-                            </div>
-
-                            <div className="proposal-buttons">
-                                <button
-                                onClick={() => {
-                                    localStorage.setItem("selectedProject", JSON.stringify(proposal.project));
-                                    router.push(`/menuFreelancer/verMisTrabajos/${proposal.project.id}`);
-                                }}
-                            >
-                                Ver trabajo
-                            </button>
-                            </div>
-
+                    {/* SEARCH */}
+                    <div className="top-search">
+                        <div className="search-box">
+                            <span>🔍</span>
+                            <input
+                                type="text"
+                                placeholder="Buscar trabajo..."
+                                value={search}
+                                onChange={(e) =>
+                                    setSearch(e.target.value)
+                                }
+                            />
                         </div>
-                    ))}
+                    </div>
 
-                </div>
-            </div>
+                </section>
+
+                {/* CONTENIDO */}
+                {filteredProposals.length === 0 ? (
+                    <div className="empty-proposals">
+                        <h3>No tienes trabajos activos</h3>
+                        <p>
+                            Cuando una propuesta sea aceptada aparecerá aquí como trabajo.
+                        </p>
+                    </div>
+                ) : (
+                    <div className="proposals-grid">
+
+                        {filteredProposals.map((proposal) => (
+                            <div
+                                className="proposal-card"
+                                key={proposal.id}
+                            >
+
+                                <div className="proposal-top">
+                                    <span className="proposal-category">
+                                        {proposal.project.category}
+                                    </span>
+
+                                    <strong className="proposal-price">
+                                        Bs. {proposal.offeredPrice}
+                                    </strong>
+                                </div>
+
+                                <h3>{proposal.project.title}</h3>
+
+                                <p>{proposal.project.description}</p>
+
+                                <div className="proposal-info">
+                                    <span>
+                                        ⏱ {proposal.estimatedDays} días
+                                    </span>
+
+                                    <span>
+                                        Estado: {proposal.status}
+                                    </span>
+                                </div>
+
+                                <div className="proposal-buttons">
+                                    <button
+                                        className="delete-btn"
+                                        onClick={() => {
+                                            localStorage.setItem(
+                                                "selectedProject",
+                                                JSON.stringify(proposal.project)
+                                            );
+
+                                            router.push(
+                                                `/menuFreelancer/verMisTrabajos/${proposal.project.id}`
+                                            );
+                                        }}
+                                    >
+                                        Ver trabajo
+                                    </button>
+                                </div>
+
+                            </div>
+                        ))}
+
+                    </div>
+                )}
+
+            </main>
         </div>
     );
 }
