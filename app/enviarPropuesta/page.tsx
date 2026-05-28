@@ -1,6 +1,6 @@
 "use client";
 
-import "./EnviarPropuesta.css";
+import "./enviarPropuesta.css";
 
 export default function EnviarPropuesta() {
     function bloquearNegativos(e: React.KeyboardEvent<HTMLInputElement>) {

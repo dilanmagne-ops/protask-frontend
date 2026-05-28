@@ -167,3 +167,18 @@
     width: 230px;
     margin: auto;
 }
+/* TEXTO INPUTS */
+.campo input,
+.campo textarea {
+    color: #111827;
+}
+
+/* PLACEHOLDERS */
+.campo input::placeholder,
+.campo textarea::placeholder {
+    color: #9ca3af;
+}
+
+textarea {
+    color: #111827;
+}

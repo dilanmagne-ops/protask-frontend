@@ -1,82 +1,114 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+import Navbar from "../../components/Navbar/Navbar";
+
 import "./MenuFreelancer.css";
 
-export default function MenuFreelancer() {
+type User =
+{
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+};
+
+export default function MenuFreelancer()
+{
+    const router = useRouter();
+
+    const [user, setUser] =
+    useState<User | null>(null);
+
+    useEffect(() =>
+    {
+        const userGuardado =
+        localStorage.getItem("user");
+
+        if (!userGuardado)
+        {
+            router.push("/login");
+            return;
+        }
+
+        const userParseado =
+        JSON.parse(userGuardado);
+
+        if (userParseado.role !== "freelancer")
+        {
+            router.push("/login");
+            return;
+        }
+
+        setUser(userParseado);
+
+    }, [router]);
+
+    function cerrarSesion()
+    {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        router.push("/login");
+    }
+
     return (
-        <div className="freelancer-page">
-            <div className="freelancer-card">
-                <h1>Explorar Proyectos</h1>
+        <div>
 
-                <div className="freelancer-tabs">
-                    <button className="active-tab">
-                        Proyectos Disponibles
+            <Navbar
+                title={`Bienvenido ${user?.name}`}
+                items={[
+                    "Explorar Proyectos",
+                    "Mis Propuestas",
+                ]}
+            />
+
+            <div className="freelancer-container">
+
+                <h1>
+                    Panel Freelancer
+                </h1>
+
+                <p>
+                    Encuentra proyectos,
+                    envía propuestas
+                    y administra tus trabajos.
+                </p>
+
+                <div className="freelancer-buttons">
+
+                    <button
+                        onClick={() =>
+                            router.push(
+                            "/menuFreelancer/explorarProyectos"
+                            )
+                        }
+                    >
+                        Explorar Proyectos
                     </button>
-                    <span>Freelancer</span>
+
+                    <button
+                        onClick={() =>
+                            router.push(
+                            "/menuFreelancer/verMisPropuestas"
+                            )
+                        }
+                    >
+                        Mis Propuestas
+                    </button>
+
+                    <button
+                        onClick={cerrarSesion}
+                    >
+                        Cerrar Sesión
+                    </button>
+
                 </div>
 
-                <div className="search-box">
-                    <span>🔍</span>
-                    <input
-                        type="text"
-                        placeholder="Buscar proyectos..."
-                    />
-                </div>
-
-                <div className="filters-box">
-                    <h3>Filtros</h3>
-
-                    <label>Categoría</label>
-                    <select>
-                        <option>Todas</option>
-                        <option>Desarrollo</option>
-                        <option>Diseño</option>
-                        <option>Marketing</option>
-                    </select>
-
-                    <label>Presupuesto</label>
-                    <div className="budget-row">
-                        <input type="number" placeholder="Min" />
-                        <input type="number" placeholder="Max" />
-                    </div>
-
-                    <label>Habilidades</label>
-                    <input
-                        type="text"
-                        placeholder="Seleccionar..."
-                    />
-                </div>
-
-                <div className="project-list">
-                    <div className="project-card">
-                        <h3>Proyecto Ejemplo 1</h3>
-                        <p>Descripción breve del proyecto aquí...</p>
-                        <div className="project-footer">
-                            <span>📁 Desarrollo</span>
-                            <strong>Bs. 5,000</strong>
-                        </div>
-                        <button>Ver detalle</button>
-                    </div>
-
-                    <div className="project-card">
-                        <h3>Proyecto Ejemplo 2</h3>
-                        <p>Descripción breve del proyecto aquí...</p>
-                        <div className="project-footer">
-                            <span>📁 Desarrollo</span>
-                            <strong>Bs. 5,000</strong>
-                        </div>
-                        <button>Ver detalle</button>
-                    </div>
-
-                    <div className="project-card">
-                        <h3>Proyecto Ejemplo 3</h3>
-                        <p>Descripción breve del proyecto aquí...</p>
-                        <div className="project-footer">
-                            <span>📁 Desarrollo</span>
-                            <strong>Bs. 5,000</strong>
-                        </div>
-                        <button>Ver detalle</button>
-                    </div>
-                </div>
             </div>
+
         </div>
     );
 }

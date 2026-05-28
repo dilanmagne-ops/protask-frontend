@@ -2,52 +2,110 @@
 
 import "./ProjectForm.css";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 export default function ProjectForm()
 {
     const router = useRouter();
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [category, setCategory] = useState("");
+    const [budget, setBudget] = useState("");
+    const [deadlineDays, setDeadlineDays] = useState("");
+    const [error, setError] = useState("");
+
+    async function handleSubmit(e: React.FormEvent)
+    {
+        e.preventDefault();
+        setError("");
+        try
+        {
+            const token = localStorage.getItem("token");
+            const response =
+            await fetch("http://localhost:3000/api/projects",
+                {
+                    method: "POST",
+                    headers:
+                    {
+                        "Content-Type":
+                        "application/json",
+
+                        Authorization:
+                        `Bearer ${token}`,
+                    },
+                    body:
+                    JSON.stringify({
+                        title,
+                        description,
+                        category,
+                        budget:
+                        Number(budget),
+
+                        deadlineDays:
+                        Number(deadlineDays),
+                    }),
+                }
+            );
+            const data =
+            await response.json();
+            console.log(data);
+            if (!response.ok)
+            {
+                setError(data.message || "Error al crear proyecto");
+                return;
+            }
+            alert("Proyecto publicado correctamente");
+            router.push("/menuCliente");
+        }
+
+        catch(error)
+        {
+            console.log(error);
+            setError("Error de conexión");
+        }
+    }
+
     return (
         <div className="project-form-container">
-
             <div className="project-form-card">
-
                 <h1>
                     Formulario de Proyecto
                 </h1>
-
                 <div className="project-header">
-
                     <span>
                         ← Nuevo Proyecto
                     </span>
-
                     <span className="cliente-role">
                         Cliente
                     </span>
-
                 </div>
-
-                <form className="project-form">
-
+                <form className="project-form"
+                    onSubmit={handleSubmit}
+                >
+                    
                     <div className="input-group">
-
                         <label>
                             Titulo del proyecto *
                         </label>
-
                         <input
                             type="text"
-                            placeholder=""
+                            value={title}
+                            onChange={(e)=>setTitle(e.target.value)}
+                            required
                         />
-
                     </div>
-
                     <div className="input-group">
 
                         <label>
                             Descripcion *
                         </label>
 
-                        <textarea />
+                        <textarea 
+                            value={description}
+                            onChange={(e)=>setDescription(
+                                e.target.value
+                            )}
+                            required
+                        />
 
                     </div>
 
@@ -57,21 +115,30 @@ export default function ProjectForm()
                             Categoria *
                         </label>
 
-                        <select>
+                        <select
+                            value={category}
 
-                            <option>
+                                onChange={(e)=>
+                                setCategory(
+                                    e.target.value
+                                )}
+
+                                required
+                            >
+
+                            <option value="">
                                 Seleccionar...
                             </option>
 
-                            <option>
+                            <option value="Desarrollo Web">
                                 Desarrollo Web
                             </option>
 
-                            <option>
+                            <option value="Diseño Grafico">
                                 Diseño Grafico
                             </option>
 
-                            <option>
+                            <option value="Marketing">
                                 Marketing
                             </option>
 
@@ -87,8 +154,12 @@ export default function ProjectForm()
                                 Presupuesto (Bs) *
                             </label>
 
-                            <input type="number" />
-
+                            <input 
+                                type="number"
+                                value={budget}
+                                onChange={(e)=>setBudget(e.target.value)}
+                                required 
+                            />
                         </div>
 
                         <div className="input-group">
@@ -97,12 +168,25 @@ export default function ProjectForm()
                                 Plazo (dias) *
                             </label>
 
-                            <input type="number" />
+                            <input type="number"
+                                value={deadlineDays}
+
+                                onChange={(e)=>
+                                setDeadlineDays(
+                                    e.target.value
+                                )}
+
+                                required
+                             />
 
                         </div>
 
                     </div>
-
+                    {error && (
+                        <p>
+                            {error}
+                        </p>
+                    )}
                     <div className="hitos-box">
 
                         <p>
