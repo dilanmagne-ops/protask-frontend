@@ -3,7 +3,6 @@
 import "./MisProyectos.css";
 
 import { useRouter } from "next/navigation";
-
 import { useEffect, useState } from "react";
 
 type Project =
@@ -21,7 +20,6 @@ export default function MisProyectos()
     const router = useRouter();
 
     const [projects, setProjects] = useState<Project[]>([]);
-
     const [search, setSearch] = useState("");
 
     useEffect(() =>
@@ -33,16 +31,14 @@ export default function MisProyectos()
     {
         try
         {
-            const token =
-                localStorage.getItem("token");
+            const token = localStorage.getItem("token");
 
             const response = await fetch(
                 "http://localhost:3000/api/projects",
                 {
                     headers:
                     {
-                        Authorization:
-                            `Bearer ${token}`,
+                        Authorization: `Bearer ${token}`,
                     },
                 }
             );
@@ -51,7 +47,7 @@ export default function MisProyectos()
 
             console.log(data);
 
-            setProjects(data.data);
+            setProjects(data.data ?? []);
         }
         catch (error)
         {
@@ -59,8 +55,14 @@ export default function MisProyectos()
         }
     }
 
-    const filteredProjects =
+    const activeProjects =
         projects.filter((project) =>
+            project.status !== "cancelled" &&
+            project.status !== "completed"
+        );
+
+    const filteredProjects =
+        activeProjects.filter((project) =>
             project.title
                 .toLowerCase()
                 .includes(search.toLowerCase())
@@ -72,7 +74,6 @@ export default function MisProyectos()
             <section className="misproyectos-hero">
 
                 <div>
-
                     <span className="misproyectos-badge">
                         Panel Cliente
                     </span>
@@ -85,23 +86,20 @@ export default function MisProyectos()
                         Revisa los proyectos que publicaste, consulta sus datos
                         y explora las propuestas recibidas por freelancers.
                     </p>
-
                 </div>
 
                 <div className="misproyectos-summary">
-
                     <span>
-                        Total de proyectos
+                        Total de proyectos activos
                     </span>
 
                     <strong>
-                        {projects.length}
+                        {activeProjects.length}
                     </strong>
 
                     <p>
                         Proyectos publicados en ProTask
                     </p>
-
                 </div>
 
             </section>
@@ -163,71 +161,96 @@ export default function MisProyectos()
                         )
                         : (
                             filteredProjects.map((project) =>
-                            (
-                                <div
-                                    className="project-item"
-                                    key={project.id}
-                                >
+                            {
+                                const isInProgress =
+                                    project.status === "in_progress";
 
-                                    <div className="project-top">
+                                return (
+                                    <div
+                                        className="project-item"
+                                        key={project.id}
+                                    >
 
-                                        <span className="project-category">
-                                            {project.category}
-                                        </span>
+                                        <div className="project-top">
 
-                                        <span className="project-status">
-                                            {project.status}
-                                        </span>
-
-                                    </div>
-
-                                    <h2>
-                                        {project.title}
-                                    </h2>
-
-                                    <p>
-                                        {project.description}
-                                    </p>
-
-                                    <div className="project-footer">
-
-                                        <div>
-                                            <span>
-                                                Presupuesto
+                                            <span className="project-category">
+                                                {project.category}
                                             </span>
 
-                                            <strong className="price">
-                                                Bs. {project.budget}
-                                            </strong>
+                                            <span className="project-status">
+                                                {project.status}
+                                            </span>
+
+                                        </div>
+
+                                        <h2>
+                                            {project.title}
+                                        </h2>
+
+                                        <p>
+                                            {project.description}
+                                        </p>
+
+                                        <div className="project-footer">
+
+                                            <div>
+                                                <span>
+                                                    Presupuesto
+                                                </span>
+
+                                                <strong className="price">
+                                                    Bs. {project.budget}
+                                                </strong>
+                                            </div>
+
+                                        </div>
+
+                                        <div className="project-actions">
+
+                                            <button
+                                                className="edit-button"
+                                                onClick={() =>
+                                                    router.push(
+                                                        `/menuCliente/verMisProyectos/verProyecto/${project.id}`
+                                                    )
+                                                }
+                                            >
+                                                Ver Proyecto
+                                            </button>
+
+                                            {
+                                                isInProgress
+                                                ? (
+                                                    <button
+                                                        className="proposal-button"
+                                                        onClick={() =>
+                                                            router.push(
+                                                                `/menuCliente/verMisProyectos/verAvance/${project.id}`
+                                                            )
+                                                        }
+                                                    >
+                                                        Ver Avance
+                                                    </button>
+                                                )
+                                                : (
+                                                    <button
+                                                        className="proposal-button"
+                                                        onClick={() =>
+                                                            router.push(
+                                                                `/menuCliente/verMisProyectos/explorarPropuestas/${project.id}`
+                                                            )
+                                                        }
+                                                    >
+                                                        Ver Propuestas
+                                                    </button>
+                                                )
+                                            }
+
                                         </div>
 
                                     </div>
-
-                                    <div className="project-actions">
-
-                                        <button className="edit-button">
-                                            Editar
-                                        </button>
-
-                                        <button className="delete-button">
-                                            Borrar
-                                        </button>
-
-                                        <button
-                                            className="proposal-button"
-                                            onClick={() =>
-                                                router.push(
-                                                    `/menuCliente/verMisProyectos/explorarPropuestas/${project.id}`
-                                                )
-                                            }
-                                        >
-                                            Ver Propuestas
-                                        </button>
-
-                                    </div>
-
-                                </div>
-                            ))
+                                );
+                            })
                         )
                     }
 
@@ -235,7 +258,6 @@ export default function MisProyectos()
 
                 <button
                     className="back-button"
-
                     onClick={() =>
                         router.push("/menuCliente")
                     }

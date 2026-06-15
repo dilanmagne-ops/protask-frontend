@@ -174,11 +174,30 @@ export default function MenuFreelancer() {
                         </button>
 
                     </div>
+                    <div
+                        className="action-card"
+                        onClick={() =>
+                            router.push("/menuFreelancer/verPagos")
+                        }
+                    >
+                        <span className="action-number">04</span>
 
+                        <h3>
+                            Pagos Escrow
+                        </h3>
+
+                        <p>
+                            Revisa los pagos retenidos, liberados o reembolsados de tus proyectos.
+                        </p>
+
+                        <button>
+                            Ver pagos
+                        </button>
+                    </div>
                     <div className="freelancer-card">
 
                         <div className="card-number">
-                            04
+                            05
                         </div>
 
                         <h3>Ver Mi Perfil</h3>
@@ -196,7 +215,7 @@ export default function MenuFreelancer() {
                     <div className="freelancer-card">
 
                         <div className="card-number">
-                            05
+                            06
                         </div>
 
                         <h3>Cerrar Sesión</h3>
