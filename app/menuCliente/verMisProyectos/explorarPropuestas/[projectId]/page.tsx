@@ -102,66 +102,65 @@ export default function VerPropuestasPage()
     }
 
     async function aceptarPropuesta(proposalId: string)
-    {
-        const confirmar = confirm(
-            "¿Seguro que quieres aceptar esta propuesta?"
-        );
+{
+    const confirmar = confirm(
+        "Para continuar, esta propuesta será aceptada y luego pasarás a la pantalla de pago. ¿Deseas continuar?"
+    );
 
-        if (!confirmar)
+    if (!confirmar)
+    {
+        return;
+    }
+
+    try
+    {
+        const token =
+            localStorage.getItem("token");
+
+        if (!token)
         {
+            router.push("/login");
             return;
         }
 
-        try
-        {
-            const token =
-                localStorage.getItem("token");
-
-            if (!token)
+        const response = await fetch(
+            `http://localhost:3000/api/proposals/${proposalId}/accept`,
             {
-                router.push("/login");
-                return;
-            }
-
-            const response = await fetch(
-                `http://localhost:3000/api/proposals/${proposalId}/accept`,
+                method: "PATCH",
+                headers:
                 {
-                    method: "PATCH",
-
-                    headers:
-                    {
-                        Authorization:
-                            `Bearer ${token}`,
-                    },
-                }
-            );
-
-            const data =
-                await response.json();
-
-            console.log(data);
-
-            if (response.ok)
-            {
-                alert("Propuesta aceptada correctamente");
-
-                obtenerPropuestas();
+                    Authorization:
+                        `Bearer ${token}`,
+                },
             }
-            else
-            {
-                alert(
-                    data.message ||
-                    data.messages?.[0]?.description ||
-                    "No se pudo aceptar la propuesta"
-                );
-            }
-        }
-        catch (error)
+        );
+
+        const data =
+            await response.json();
+
+        console.log("Respuesta aceptar propuesta:", data);
+
+        if (response.ok)
         {
-            console.error(error);
-            alert("Error del servidor");
+            router.push(
+                `/menuCliente/verMisProyectos/pagar/${proposalId}`
+            );
+        }
+        else
+        {
+            alert(
+                data.message ||
+                data.messages?.[0]?.description ||
+                "No se pudo aceptar la propuesta"
+            );
         }
     }
+    catch (error)
+    {
+        console.error(error);
+        alert("Error del servidor");
+    }
+}
 
     async function rechazarPropuesta(proposalId: string)
     {
@@ -406,7 +405,7 @@ export default function VerPropuestasPage()
                                                             aceptarPropuesta(proposal.id)
                                                         }
                                                     >
-                                                        Aceptar Propuesta
+                                                        Aceptar y pagar
                                                     </button>
 
                                                     <button
@@ -428,7 +427,6 @@ export default function VerPropuestasPage()
                                                 </span>
                                             )
                                         }
-
                                         {
                                             proposal.status === "rejected" && (
                                                 <span className="rejected-message">
@@ -436,7 +434,6 @@ export default function VerPropuestasPage()
                                                 </span>
                                             )
                                         }
-
                                     </div>
 
                                 </div>

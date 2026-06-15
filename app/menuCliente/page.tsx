@@ -155,11 +155,31 @@ export default function MenuCliente()
                         Crear proyecto
                     </button>
                 </div>
+                 <div
+                    className="action-card"
+                    onClick={() =>
+                        router.push("/menuCliente/verPagos")
+                    }
+                >
+                    <span className="action-number">03</span>
+
+                    <h3>
+                        Pagos Escrow
+                    </h3>
+
+                    <p>
+                        Revisa los pagos retenidos, liberados o reembolsados de tus proyectos.
+                    </p>
+
+                    <button>
+                        Ver pagos
+                    </button>
+                </div>
                 <div
                     className="action-card"
                     onClick={verMiPerfil}
                 >
-                    <span className="action-number">03</span>
+                    <span className="action-number">04</span>
 
                     <h3>
                         Ver Mi Perfil
@@ -175,7 +195,7 @@ export default function MenuCliente()
                 </div>
                 <div className="action-card logout-card">
 
-                    <span className="action-number">04</span>
+                    <span className="action-number">05</span>
 
                     <h3>
                         Cerrar Sesión

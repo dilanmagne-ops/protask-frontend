@@ -10,6 +10,7 @@ type Project =
     description: string;
     category: string;
     budget: number;
+    deadlineDays: number;
     status: string;
 };
 
@@ -29,6 +30,7 @@ export default function VerProyectoPage()
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
     const [budget, setBudget] = useState("");
+    const [deadlineDays, setDeadlineDays] = useState("");
 
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -48,6 +50,7 @@ export default function VerProyectoPage()
         {
             setLoading(true);
             setError("");
+            setMessage("");
 
             const token = localStorage.getItem("token");
 
@@ -63,6 +66,8 @@ export default function VerProyectoPage()
 
             const data = await response.json();
 
+            console.log("Proyecto recibido:", data);
+
             if (!response.ok)
             {
                 throw new Error(data.message || "No se pudo obtener el proyecto");
@@ -71,10 +76,12 @@ export default function VerProyectoPage()
             const projectData = data.data ?? data;
 
             setProject(projectData);
-            setTitle(projectData.title);
-            setDescription(projectData.description);
-            setCategory(projectData.category);
-            setBudget(String(projectData.budget));
+
+            setTitle(projectData.title ?? "");
+            setDescription(projectData.description ?? "");
+            setCategory(projectData.category ?? "");
+            setBudget(String(projectData.budget ?? ""));
+            setDeadlineDays(String(projectData.deadlineDays ?? ""));
         }
         catch (error)
         {
@@ -99,6 +106,36 @@ export default function VerProyectoPage()
             return;
         }
 
+        if (project.status === "completed")
+        {
+            setError("Este proyecto ya fue completado y no puede editarse.");
+            return;
+        }
+
+        if (project.status === "cancelled")
+        {
+            setError("Este proyecto fue cancelado y no puede editarse.");
+            return;
+        }
+
+        if (!title.trim() || !description.trim() || !category.trim())
+        {
+            setError("Todos los campos de texto son obligatorios.");
+            return;
+        }
+
+        if (Number(budget) <= 0)
+        {
+            setError("El presupuesto debe ser mayor a 0.");
+            return;
+        }
+
+        if (Number(deadlineDays) <= 0)
+        {
+            setError("Los días de plazo deben ser mayores a 0.");
+            return;
+        }
+
         try
         {
             setSaving(true);
@@ -118,28 +155,48 @@ export default function VerProyectoPage()
                     },
                     body: JSON.stringify(
                     {
-                        title,
-                        description,
-                        category,
+                        title: title.trim(),
+                        description: description.trim(),
+                        category: category.trim(),
                         budget: Number(budget),
+                        deadlineDays: Number(deadlineDays),
                     }),
                 }
             );
 
             const data = await response.json();
 
+            console.log("Respuesta editar proyecto:", data);
+
             if (!response.ok)
             {
                 throw new Error(data.message || "No se pudo editar el proyecto");
             }
 
+            const updatedProject = data.data ?? data;
+
+            setProject(updatedProject);
+
+            setTitle(updatedProject.title ?? title);
+            setDescription(updatedProject.description ?? description);
+            setCategory(updatedProject.category ?? category);
+            setBudget(String(updatedProject.budget ?? budget));
+            setDeadlineDays(String(updatedProject.deadlineDays ?? deadlineDays));
+
             setMessage("Proyecto actualizado correctamente.");
-            obtenerProyecto();
         }
         catch (error)
         {
             console.error(error);
-            setError("Error al editar el proyecto");
+
+            if (error instanceof Error)
+            {
+                setError(error.message);
+            }
+            else
+            {
+                setError("Error al editar el proyecto");
+            }
         }
         finally
         {
@@ -147,18 +204,30 @@ export default function VerProyectoPage()
         }
     }
 
-    async function borrarProyecto()
+    async function cancelarProyecto()
     {
         if (!project) return;
 
         if (project.status === "in_progress")
         {
-            setError("Este proyecto ya está en progreso y no puede borrarse.");
+            setError("Este proyecto ya está en progreso y no puede cancelarse.");
+            return;
+        }
+
+        if (project.status === "completed")
+        {
+            setError("Este proyecto ya fue completado y no puede cancelarse.");
+            return;
+        }
+
+        if (project.status === "cancelled")
+        {
+            setError("Este proyecto ya fue cancelado.");
             return;
         }
 
         const confirmar =
-            window.confirm("¿Seguro que quieres borrar este proyecto?");
+            window.confirm("¿Seguro que quieres cancelar este proyecto?");
 
         if (!confirmar) return;
 
@@ -170,9 +239,9 @@ export default function VerProyectoPage()
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                `http://localhost:3000/api/projects/${project.id}`,
+                `http://localhost:3000/api/projects/${project.id}/cancelar`,
                 {
-                    method: "DELETE",
+                    method: "PATCH",
                     headers:
                     {
                         Authorization: `Bearer ${token}`,
@@ -182,9 +251,11 @@ export default function VerProyectoPage()
 
             const data = await response.json();
 
+            console.log("Respuesta cancelar proyecto:", data);
+
             if (!response.ok)
             {
-                throw new Error(data.message || "No se pudo borrar el proyecto");
+                throw new Error(data.message || "No se pudo cancelar el proyecto");
             }
 
             router.push("/menuCliente/verMisProyectos");
@@ -192,7 +263,15 @@ export default function VerProyectoPage()
         catch (error)
         {
             console.error(error);
-            setError("Error al borrar el proyecto");
+
+            if (error instanceof Error)
+            {
+                setError(error.message);
+            }
+            else
+            {
+                setError("Error al cancelar el proyecto");
+            }
         }
     }
 
@@ -222,11 +301,20 @@ export default function VerProyectoPage()
         );
     }
 
-    const isInProgress =
-        project.status === "in_progress";
+    const isBlocked =
+        project.status === "in_progress" ||
+        project.status === "completed" ||
+        project.status === "cancelled";
 
     return (
-        <main style={{ padding: "40px" }}>
+        <main
+            style={{
+                padding: "40px",
+                color: "white",
+                background: "#020617",
+                minHeight: "100vh",
+            }}
+        >
 
             <h1>
                 Ver Proyecto
@@ -237,10 +325,26 @@ export default function VerProyectoPage()
             </p>
 
             {
-                isInProgress && (
+                project.status === "in_progress" && (
                     <p style={{ color: "orange" }}>
                         Este proyecto ya tiene una propuesta aceptada.
-                        Por eso no puede editarse ni borrarse.
+                        Por eso no puede editarse ni cancelarse.
+                    </p>
+                )
+            }
+
+            {
+                project.status === "completed" && (
+                    <p style={{ color: "orange" }}>
+                        Este proyecto ya fue completado.
+                    </p>
+                )
+            }
+
+            {
+                project.status === "cancelled" && (
+                    <p style={{ color: "orange" }}>
+                        Este proyecto fue cancelado.
                     </p>
                 )
             }
@@ -255,7 +359,7 @@ export default function VerProyectoPage()
 
             {
                 message && (
-                    <p style={{ color: "green" }}>
+                    <p style={{ color: "lightgreen" }}>
                         {message}
                     </p>
                 )
@@ -263,59 +367,86 @@ export default function VerProyectoPage()
 
             <form onSubmit={editarProyecto}>
 
-                <div>
+                <div style={{ marginBottom: "14px" }}>
                     <label>Título</label>
+                    <br />
 
                     <input
                         type="text"
                         value={title}
-                        disabled={isInProgress}
+                        disabled={isBlocked}
                         onChange={(e) =>
                             setTitle(e.target.value)
                         }
+                        style={{ width: "100%", padding: "10px" }}
                     />
                 </div>
 
-                <div>
+                <div style={{ marginBottom: "14px" }}>
                     <label>Descripción</label>
+                    <br />
 
                     <textarea
                         value={description}
-                        disabled={isInProgress}
+                        disabled={isBlocked}
                         onChange={(e) =>
                             setDescription(e.target.value)
                         }
+                        style={{
+                            width: "100%",
+                            padding: "10px",
+                            minHeight: "120px",
+                        }}
                     />
                 </div>
 
-                <div>
+                <div style={{ marginBottom: "14px" }}>
                     <label>Categoría</label>
+                    <br />
 
                     <input
                         type="text"
                         value={category}
-                        disabled={isInProgress}
+                        disabled={isBlocked}
                         onChange={(e) =>
                             setCategory(e.target.value)
                         }
+                        style={{ width: "100%", padding: "10px" }}
                     />
                 </div>
 
-                <div>
+                <div style={{ marginBottom: "14px" }}>
                     <label>Presupuesto</label>
+                    <br />
 
                     <input
                         type="number"
                         value={budget}
-                        disabled={isInProgress}
+                        disabled={isBlocked}
                         onChange={(e) =>
                             setBudget(e.target.value)
                         }
+                        style={{ width: "100%", padding: "10px" }}
+                    />
+                </div>
+
+                <div style={{ marginBottom: "14px" }}>
+                    <label>Días de plazo</label>
+                    <br />
+
+                    <input
+                        type="number"
+                        value={deadlineDays}
+                        disabled={isBlocked}
+                        onChange={(e) =>
+                            setDeadlineDays(e.target.value)
+                        }
+                        style={{ width: "100%", padding: "10px" }}
                     />
                 </div>
 
                 {
-                    !isInProgress && (
+                    !isBlocked && (
                         <div style={{ marginTop: "20px" }}>
 
                             <button
@@ -331,10 +462,10 @@ export default function VerProyectoPage()
 
                             <button
                                 type="button"
-                                onClick={borrarProyecto}
+                                onClick={cancelarProyecto}
                                 style={{ marginLeft: "12px" }}
                             >
-                                Borrar proyecto
+                                Cancelar proyecto
                             </button>
 
                         </div>

@@ -55,8 +55,14 @@ export default function MisProyectos()
         }
     }
 
-    const filteredProjects =
+    const activeProjects =
         projects.filter((project) =>
+            project.status !== "cancelled" &&
+            project.status !== "completed"
+        );
+
+    const filteredProjects =
+        activeProjects.filter((project) =>
             project.title
                 .toLowerCase()
                 .includes(search.toLowerCase())
@@ -84,11 +90,11 @@ export default function MisProyectos()
 
                 <div className="misproyectos-summary">
                     <span>
-                        Total de proyectos
+                        Total de proyectos activos
                     </span>
 
                     <strong>
-                        {projects.length}
+                        {activeProjects.length}
                     </strong>
 
                     <p>
