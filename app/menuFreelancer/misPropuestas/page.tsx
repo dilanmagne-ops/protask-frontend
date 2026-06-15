@@ -77,48 +77,16 @@ export default function MisPropuestas()
     }
 
     const filteredProposals =
-        proposals.filter((proposal) =>
-            proposal.project.title
-                .toLowerCase()
-                .includes(search.toLowerCase())
-        );
-
-    async function borrarPropuesta(id: string)
+    proposals.filter((proposal) =>
+        proposal.status !== "rejected" &&
+        proposal.project.title
+            .toLowerCase()
+            .includes(search.toLowerCase())
+    );
+    function editarPropuesta(id: string)
     {
-        try
-        {
-            const token =
-                localStorage.getItem("token");
-
-            const response = await fetch(
-                `http://localhost:3000/api/proposals/${id}`,
-                {
-                    method: "DELETE",
-
-                    headers:
-                    {
-                        Authorization:
-                            `Bearer ${token}`,
-                    },
-                }
-            );
-
-            if (response.ok)
-            {
-                setProposals(
-                    proposals.filter(
-                        (proposal) =>
-                            proposal.id !== id
-                    )
-                );
-            }
-        }
-        catch (error)
-        {
-            console.error(error);
-        }
+        router.push(`/menuFreelancer/misPropuestas/editar/${id}`);
     }
-
     return (
         <div className="mispropuestas-page">
 
@@ -230,21 +198,24 @@ export default function MisPropuestas()
                                                 </span>
 
                                             </div>
+                                            {
+                                            proposal.status === "pending" && (
+                                                <div className="proposal-buttons">
 
-                                            <div className="proposal-buttons">
+                                                    <button
+                                                        className="edit-btn"
+                                                        onClick={() =>
+                                                            editarPropuesta(proposal.id)
+                                                        }
+                                                    >
+                                                        Editar propuesta
+                                                    </button>
 
-                                                <button
-                                                    className="delete-btn"
-                                                    onClick={() =>
-                                                        borrarPropuesta(proposal.id)
-                                                    }
-                                                >
-                                                    Borrar propuesta
-                                                </button>
-
-                                            </div>
-
+                                                </div>
+                                            )
+                                            }
                                         </div>
+                                        
                                     ))
                                 }
 

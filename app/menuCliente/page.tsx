@@ -41,6 +41,16 @@ export default function MenuCliente()
         setUser(userParseado);
 
     }, [router]);
+    function verMiPerfil()
+    {
+        if (!user?.id)
+        {
+            alert("No se encontró el ID del usuario.");
+            return;
+        }
+
+        router.push(`/perfil/${user.id}`);
+    }
 
     function cerrarSesion()
     {
@@ -145,10 +155,27 @@ export default function MenuCliente()
                         Crear proyecto
                     </button>
                 </div>
+                <div
+                    className="action-card"
+                    onClick={verMiPerfil}
+                >
+                    <span className="action-number">03</span>
 
+                    <h3>
+                        Ver Mi Perfil
+                    </h3>
+
+                    <p>
+                        Consulta los datos de tu cuenta y revisa cómo se ve tu perfil.
+                    </p>
+
+                    <button>
+                        Ver mi perfil
+                    </button>
+                </div>
                 <div className="action-card logout-card">
 
-                    <span className="action-number">03</span>
+                    <span className="action-number">04</span>
 
                     <h3>
                         Cerrar Sesión
