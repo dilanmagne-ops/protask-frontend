@@ -12,6 +12,12 @@ export default function RegisterForm() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+
+
+    const [darkMode, setDarkMode] = useState(true);
+
+    
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const handleRegister = async (e: React.FormEvent) => {
@@ -58,7 +64,17 @@ export default function RegisterForm() {
     };
 
     return (
-        <main className="register-page">
+
+
+
+        <main className={
+                darkMode
+                    ? "register-page"
+                    : "register-page light-mode"
+            }
+        >
+
+
 
             <section className="register-layout">
 
@@ -118,6 +134,25 @@ export default function RegisterForm() {
                             <p className="register-subtitle">
                                 Completa tus datos para crear tu cuenta.
                             </p>
+
+
+
+
+                            <button
+                                type="button"
+                                className="theme-button"
+                                onClick={() =>
+                                    setDarkMode(!darkMode)
+                                }
+                            >
+                                {darkMode ? "Light Mode" : "Dark Mode"}
+                            </button>
+
+
+
+
+
+
                         </div>
 
                     </div>
