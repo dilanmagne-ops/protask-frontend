@@ -20,7 +20,11 @@ type Proposal =
 
     freelancer:
     {
+        id: string;
+
         name: string;
+
+        email?: string;
     };
 };
 
@@ -31,7 +35,9 @@ export default function VerPropuestasPage()
     const params = useParams();
 
     const projectId =
-        params.projectId;
+        Array.isArray(params.projectId)
+            ? params.projectId[0]
+            : params.projectId;
 
     const [proposals, setProposals] =
         useState<Proposal[]>([]);
@@ -41,8 +47,10 @@ export default function VerPropuestasPage()
 
     useEffect(() =>
     {
+        if (!projectId) return;
+
         obtenerPropuestas();
-    }, []);
+    }, [projectId]);
 
     async function obtenerPropuestas()
     {
@@ -50,6 +58,12 @@ export default function VerPropuestasPage()
         {
             const token =
                 localStorage.getItem("token");
+
+            if (!token)
+            {
+                router.push("/login");
+                return;
+            }
 
             const response = await fetch(
                 `http://localhost:3000/api/proposals/project/${projectId}`,
@@ -65,22 +79,49 @@ export default function VerPropuestasPage()
             const data =
                 await response.json();
 
-            console.log(JSON.stringify(data.data[0], null, 2));
+            console.log(data);
 
-            setProposals(data.data);
+            if (!response.ok)
+            {
+                alert(
+                    data.message ||
+                    data.messages?.[0]?.description ||
+                    "No se pudieron cargar las propuestas"
+                );
+
+                return;
+            }
+
+            setProposals(data.data ?? data);
         }
         catch (error)
         {
             console.error(error);
+            alert("Error al cargar las propuestas");
         }
     }
 
     async function aceptarPropuesta(proposalId: string)
     {
+        const confirmar = confirm(
+            "¿Seguro que quieres aceptar esta propuesta?"
+        );
+
+        if (!confirmar)
+        {
+            return;
+        }
+
         try
         {
             const token =
                 localStorage.getItem("token");
+
+            if (!token)
+            {
+                router.push("/login");
+                return;
+            }
 
             const response = await fetch(
                 `http://localhost:3000/api/proposals/${proposalId}/accept`,
@@ -108,13 +149,85 @@ export default function VerPropuestasPage()
             }
             else
             {
-                alert(data.messages?.[0]?.description);
+                alert(
+                    data.message ||
+                    data.messages?.[0]?.description ||
+                    "No se pudo aceptar la propuesta"
+                );
             }
         }
         catch (error)
         {
             console.error(error);
+            alert("Error del servidor");
         }
+    }
+
+    async function rechazarPropuesta(proposalId: string)
+    {
+        const confirmar = confirm(
+            "¿Seguro que quieres rechazar esta propuesta?"
+        );
+
+        if (!confirmar)
+        {
+            return;
+        }
+
+        try
+        {
+            const token =
+                localStorage.getItem("token");
+
+            if (!token)
+            {
+                router.push("/login");
+                return;
+            }
+
+            const response = await fetch(
+                `http://localhost:3000/api/proposals/${proposalId}/reject`,
+                {
+                    method: "PATCH",
+
+                    headers:
+                    {
+                        Authorization:
+                            `Bearer ${token}`,
+                    },
+                }
+            );
+
+            const data =
+                await response.json();
+
+            console.log(data);
+
+            if (response.ok)
+            {
+                alert("Propuesta rechazada correctamente");
+
+                obtenerPropuestas();
+            }
+            else
+            {
+                alert(
+                    data.message ||
+                    data.messages?.[0]?.description ||
+                    "No se pudo rechazar la propuesta"
+                );
+            }
+        }
+        catch (error)
+        {
+            console.error(error);
+            alert("Error del servidor");
+        }
+    }
+
+    function verPerfilFreelancer(freelancerId: string)
+    {
+        router.push(`/perfil/${freelancerId}`);
     }
 
     const filteredProposals =
@@ -238,7 +351,7 @@ export default function VerPropuestasPage()
                                                 {proposal.freelancer.name}
                                             </h2>
 
-                                            <span className="proposal-status">
+                                            <span className={`proposal-status ${proposal.status}`}>
                                                 {proposal.status}
                                             </span>
                                         </div>
@@ -275,18 +388,54 @@ export default function VerPropuestasPage()
 
                                     <div className="proposal-actions">
 
-                                        <button className="profile-button">
+                                        <button
+                                            className="profile-button"
+                                            onClick={() =>
+                                                verPerfilFreelancer(proposal.freelancer.id)
+                                            }
+                                        >
                                             Ver Perfil
                                         </button>
 
-                                        <button
-                                            className="accept-button"
-                                            onClick={() =>
-                                                aceptarPropuesta(proposal.id)
-                                            }
-                                        >
-                                            Aceptar Propuesta
-                                        </button>
+                                        {
+                                            proposal.status === "pending" && (
+                                                <>
+                                                    <button
+                                                        className="accept-button"
+                                                        onClick={() =>
+                                                            aceptarPropuesta(proposal.id)
+                                                        }
+                                                    >
+                                                        Aceptar Propuesta
+                                                    </button>
+
+                                                    <button
+                                                        className="reject-button"
+                                                        onClick={() =>
+                                                            rechazarPropuesta(proposal.id)
+                                                        }
+                                                    >
+                                                        Rechazar Propuesta
+                                                    </button>
+                                                </>
+                                            )
+                                        }
+
+                                        {
+                                            proposal.status === "accepted" && (
+                                                <span className="accepted-message">
+                                                    Propuesta aceptada
+                                                </span>
+                                            )
+                                        }
+
+                                        {
+                                            proposal.status === "rejected" && (
+                                                <span className="rejected-message">
+                                                    Propuesta rechazada
+                                                </span>
+                                            )
+                                        }
 
                                     </div>
 
@@ -299,7 +448,6 @@ export default function VerPropuestasPage()
 
                 <button
                     className="back-button"
-
                     onClick={() =>
                         router.back()
                     }

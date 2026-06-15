@@ -1,0 +1,101 @@
+.editar-propuesta-page {
+    min-height: 100vh;
+    padding: 50px 8%;
+    background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 35%),
+        linear-gradient(135deg, #f8fafc, #e2e8f0);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.editar-propuesta-card {
+    width: 100%;
+    max-width: 760px;
+    background: white;
+    border-radius: 28px;
+    padding: 34px;
+    box-shadow: 0 22px 55px rgba(15, 23, 42, 0.14);
+    border: 1px solid #e2e8f0;
+}
+
+.back-button {
+    border: none;
+    background: transparent;
+    color: #2563eb;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 24px;
+}
+
+.editar-badge {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-weight: 800;
+    font-size: 13px;
+}
+
+.editar-propuesta-card h1 {
+    margin: 18px 0 8px;
+    color: #0f172a;
+    font-size: 34px;
+}
+
+.editar-subtitle {
+    color: #64748b;
+    margin-bottom: 30px;
+}
+
+.editar-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.editar-form label {
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.editar-form input,
+.editar-form textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid #cbd5e1;
+    outline: none;
+    font-size: 15px;
+    color: #0f172a;
+    background: #f8fafc;
+}
+
+.editar-form textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.editar-form input:focus,
+.editar-form textarea:focus {
+    border-color: #2563eb;
+    background: white;
+}
+
+.save-btn {
+    margin-top: 18px;
+    padding: 14px 22px;
+    border: none;
+    border-radius: 14px;
+    background: #2563eb;
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.save-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}

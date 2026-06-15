@@ -88,7 +88,23 @@ export default function ProposalProfile({ proposalId }: ProposalProfileProps) {
                 );
             }
 
-            setProposal(data.data ?? data);
+            const propuestaBase = data.data ?? data;
+
+            const propuestaGuardada = localStorage.getItem(
+                `proposalEdit:${proposalId}`
+            );
+
+            const estadoGuardado = localStorage.getItem(
+                `proposalStatus:${proposalId}`
+            );
+
+            const propuestaFinal = {
+                ...propuestaBase,
+                ...(propuestaGuardada ? JSON.parse(propuestaGuardada) : {}),
+                ...(estadoGuardado ? { status: estadoGuardado } : {}),
+            };
+
+            setProposal(propuestaFinal);
         } catch (error) {
             console.error(error);
             setError("No se pudo cargar la propuesta.");
@@ -101,18 +117,109 @@ export default function ProposalProfile({ proposalId }: ProposalProfileProps) {
         router.push(`/menuFreelancer/misPropuestas/editar/${proposalId}`);
     }
 
-    async function aceptarPropuesta() {
-        console.log("Aceptar propuesta", proposalId);
+    async function retirarPropuesta()
+    {
+        const confirmar = confirm(
+            "¿Seguro que quieres retirar esta propuesta? Se eliminará definitivamente."
+        );
 
-        // Luego aquí conectamos con el endpoint real del backend.
-        // Por ahora está preparado para el rol cliente.
+        if (!confirmar)
+        {
+            return;
+        }
+
+        try
+        {
+            const token =
+                localStorage.getItem("token");
+
+            if (!token)
+            {
+                router.push("/login");
+                return;
+            }
+
+            const response = await fetch(
+                `http://localhost:3000/api/proposals/${proposalId}`,
+                {
+                    method: "DELETE",
+                    headers:
+                    {
+                        Authorization:
+                            `Bearer ${token}`,
+                    },
+                }
+            );
+
+            const data =
+                await response.json();
+
+            console.log(data);
+
+            if (response.ok)
+            {
+                alert("Propuesta retirada correctamente");
+
+                router.push("/menuFreelancer/misPropuestas");
+            }
+            else
+            {
+                alert(
+                    data.message ||
+                    data.messages?.[0]?.description ||
+                    "No se pudo retirar la propuesta"
+                );
+            }
+        }
+        catch (error)
+        {
+            console.error(error);
+            alert("Error al retirar la propuesta");
+        }
     }
 
-    async function rechazarPropuesta() {
-        console.log("Rechazar propuesta", proposalId);
+    function aceptarPropuesta() {
+        localStorage.setItem(
+            `proposalStatus:${proposalId}`,
+            "accepted"
+        );
 
-        // Luego aquí conectamos con el endpoint real del backend.
-        // Por ahora está preparado para el rol cliente.
+        setProposal((prevProposal) =>
+            prevProposal
+                ? {
+                    ...prevProposal,
+                    status: "accepted",
+                }
+                : prevProposal
+        );
+
+        alert("Propuesta aceptada en el frontend.");
+    }
+
+    function rechazarPropuesta() {
+        const confirmar = confirm(
+            "¿Seguro que quieres rechazar esta propuesta?"
+        );
+
+        if (!confirmar) {
+            return;
+        }
+
+        localStorage.setItem(
+            `proposalStatus:${proposalId}`,
+            "rejected"
+        );
+
+        setProposal((prevProposal) =>
+            prevProposal
+                ? {
+                    ...prevProposal,
+                    status: "rejected",
+                }
+                : prevProposal
+        );
+
+        alert("Propuesta rechazada en el frontend.");
     }
 
     if (loading) {
@@ -171,10 +278,10 @@ export default function ProposalProfile({ proposalId }: ProposalProfileProps) {
                         ← Volver
                     </button>
 
-                    <h2>Propuesta rechazada</h2>
+                    <h2>Propuesta rechazada o retirada</h2>
+
                     <p>
-                        Esta propuesta fue rechazada y ya no está disponible
-                        para edición.
+                        Esta propuesta ya no está disponible para edición.
                     </p>
                 </div>
             </section>
@@ -257,12 +364,21 @@ export default function ProposalProfile({ proposalId }: ProposalProfileProps) {
                     {
                         user?.role === "freelancer" &&
                         proposal.status === "pending" && (
-                            <button
-                                className="edit-btn"
-                                onClick={editarPropuesta}
-                            >
-                                Editar propuesta
-                            </button>
+                            <>
+                                <button
+                                    className="edit-btn"
+                                    onClick={editarPropuesta}
+                                >
+                                    Editar propuesta
+                                </button>
+
+                                <button
+                                    className="reject-btn"
+                                    onClick={retirarPropuesta}
+                                >
+                                    Retirar propuesta
+                                </button>
+                            </>
                         )
                     }
 
