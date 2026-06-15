@@ -17,7 +17,6 @@ type User = {
 export default function MenuAdmin()
 {
     const router = useRouter();
-
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() =>
@@ -60,7 +59,6 @@ export default function MenuAdmin()
                     "Usuarios Aprobados",
                 ]}
             />
-
             <section className="admin-hero">
 
                 <div className="admin-content">
