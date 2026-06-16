@@ -200,6 +200,7 @@ export default function VerAvancePage() {
 
             const data = await response.json();
 
+            console.log("Respuesta aprobar entrega:", data);
             if (!response.ok) {
                 throw new Error(
                     data.message ||
@@ -208,12 +209,21 @@ export default function VerAvancePage() {
                 );
             }
 
-            setMessage(
-                data.messages?.[0]?.description ||
-                "Entrega aprobada correctamente."
-            );
+            const mensajeExito =
+            data.messages?.[0]?.description ||
+            data.message ||
+            "Entrega aprobada y pago liberado correctamente.";
+
+            if (acceptedProposal?.id) {
+                router.push(
+                    `/menuCliente/verMisProyectos/calificarFreelancer/${acceptedProposal.id}`
+                );
+                return;
+            }
 
             await cargarAvances();
+            setMessage(mensajeExito);
+
         } catch (error) {
             console.error(error);
             setError(

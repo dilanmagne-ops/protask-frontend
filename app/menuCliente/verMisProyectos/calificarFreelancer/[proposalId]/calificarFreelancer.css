@@ -1,0 +1,172 @@
+.review-page {
+    min-height: 100vh;
+    background: #f3f7fb;
+    padding: 40px 8%;
+    color: #1f2937;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.review-card {
+    width: 100%;
+    max-width: 720px;
+    background: white;
+    border: 1px solid #dbe4ee;
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.back-button {
+    border: none;
+    background: #e5e7eb;
+    color: #111827;
+    padding: 10px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 800;
+    margin-bottom: 18px;
+}
+
+.review-badge {
+    display: inline-block;
+    background: #dcfce7;
+    color: #166534;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 900;
+    margin-bottom: 12px;
+}
+
+.review-card h1 {
+    margin: 0 0 8px;
+    color: #0f172a;
+    font-size: 34px;
+}
+
+.review-subtitle {
+    color: #64748b;
+    line-height: 1.6;
+}
+
+.project-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    margin: 20px 0;
+}
+
+.project-box span {
+    display: block;
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.project-box strong {
+    display: block;
+    color: #0f172a;
+    font-size: 18px;
+}
+
+.project-box small {
+    display: block;
+    margin-top: 6px;
+    color: #64748b;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.review-form label {
+    font-weight: 900;
+    color: #334155;
+}
+
+.stars {
+    display: flex;
+    gap: 8px;
+}
+
+.star {
+    border: none;
+    background: #e5e7eb;
+    color: #94a3b8;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.star.active {
+    background: #fef3c7;
+    color: #f59e0b;
+}
+
+.review-form textarea {
+    min-height: 140px;
+    resize: vertical;
+    border: 1px solid #cbd5e1;
+    border-radius: 14px;
+    padding: 14px;
+    font-family: inherit;
+    outline: none;
+}
+
+.review-form textarea:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16);
+}
+
+.submit-review-button {
+    border: none;
+    border-radius: 14px;
+    padding: 14px 18px;
+    background: #16a34a;
+    color: white;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.submit-review-button:hover {
+    background: #15803d;
+}
+
+.submit-review-button:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+}
+
+.success-message,
+.error-message,
+.already-box {
+    padding: 12px 14px;
+    border-radius: 14px;
+    margin: 16px 0;
+    font-weight: 700;
+}
+
+.success-message {
+    background: #dcfce7;
+    border: 1px solid #86efac;
+    color: #166534;
+}
+
+.error-message {
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+}
+
+.already-box {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+}

@@ -358,3 +358,37 @@
         font-size: 30px;
     }
 }
+.review-client-box {
+    margin-top: 18px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.review-client-box h3 {
+    margin: 0 0 8px;
+    color: #1d4ed8;
+}
+
+.review-client-box p {
+    color: #475569;
+    line-height: 1.5;
+}
+
+.review-client-button {
+    border: none;
+    border-radius: 14px;
+    padding: 12px 16px;
+    background: #2563eb;
+    color: white;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.review-client-button:hover {
+    background: #1d4ed8;
+}
+.vertrabajo-grid.completed-grid {
+    grid-template-columns: 1fr;
+}

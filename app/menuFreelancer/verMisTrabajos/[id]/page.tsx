@@ -73,6 +73,14 @@ export default function VerTrabajoPage() {
         return deliveries.find((delivery) => delivery.status === "pendiente_revision");
     }, [deliveries]);
 
+    const approvedDelivery = useMemo(() => {
+        return deliveries.find((delivery) => delivery.status === "aprobado");
+    }, [deliveries]);
+
+    const projectCompleted =
+        proposal?.project.status?.toLowerCase() === "completed" ||
+        Boolean(approvedDelivery);
+
     const lastDelivery = deliveries[0];
 
     useEffect(() => {
@@ -346,7 +354,7 @@ export default function VerTrabajoPage() {
                     <p>{proposal?.project.description}</p>
                 </section>
 
-                <section className="vertrabajo-grid">
+                <section className={`vertrabajo-grid ${projectCompleted ? "completed-grid" : ""}`}> 
                     <div className="vertrabajo-card">
                         <h2>Información del Proyecto</h2>
 
@@ -388,6 +396,7 @@ export default function VerTrabajoPage() {
                         </div>
                     </div>
 
+                    {!projectCompleted && (
                     <div className="vertrabajo-card entrega-card">
                         <h2>Realizar Entrega</h2>
 
@@ -449,6 +458,26 @@ export default function VerTrabajoPage() {
                             </button>
                         </form>
                     </div>
+                )}
+                    {approvedDelivery && (
+                    <div className="review-client-box">
+                        <h3>Trabajo aprobado</h3>
+                        <p>
+                            El cliente aprobó la entrega. Ahora puedes calificar tu experiencia
+                            trabajando con él.
+                        </p>
+
+                        <button
+                            type="button"
+                            className="review-client-button"
+                            onClick={() =>
+                                router.push(`/menuFreelancer/calificarCliente/${proposalId}`)
+                            }
+                        >
+                            Calificar cliente
+                        </button>
+                    </div>
+                )}
                 </section>
 
                 <section className="vertrabajo-card historial-card">
