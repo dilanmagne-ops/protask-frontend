@@ -36,7 +36,7 @@ export default function VerMisTrabajos() {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                "http://localhost:3000/api/proposals/freelancer/me",
+                "http://localhost:3001/api/proposals/freelancer/me",
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

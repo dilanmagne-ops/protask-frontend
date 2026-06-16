@@ -68,7 +68,7 @@ export default function MisPropuestas()
             }
 
             const response = await fetch(
-                "http://localhost:3000/api/proposals/freelancer/me",
+                "http://localhost:3001/api/proposals/freelancer/me",
                 {
                     headers:
                     {
@@ -133,7 +133,7 @@ export default function MisPropuestas()
             }
 
             const response = await fetch(
-                `http://localhost:3000/api/proposals/${id}`,
+                `http://localhost:3001/api/proposals/${id}`,
                 {
                     method: "DELETE",
 

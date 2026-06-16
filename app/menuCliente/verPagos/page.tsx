@@ -68,7 +68,7 @@ export default function VerPagosClientePage()
             }
 
             const response = await fetch(
-                "http://localhost:3000/api/escrow/mis-depositos?limit=100",
+                "http://localhost:3001/api/escrow/mis-depositos?limit=100",
                 {
                     headers:
                     {

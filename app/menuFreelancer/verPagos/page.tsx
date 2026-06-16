@@ -68,7 +68,7 @@ export default function VerPagosFreelancerPage()
             }
 
             const response = await fetch(
-                "http://localhost:3000/api/escrow/mis-fondos?limit=100",
+                "http://localhost:3001/api/escrow/mis-fondos?limit=100",
                 {
                     headers:
                     {

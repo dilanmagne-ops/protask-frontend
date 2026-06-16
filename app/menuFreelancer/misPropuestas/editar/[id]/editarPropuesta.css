@@ -2,100 +2,148 @@
     min-height: 100vh;
     padding: 50px 8%;
     background:
-        radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 35%),
-        linear-gradient(135deg, #f8fafc, #e2e8f0);
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.38), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.22), transparent 34%),
+        linear-gradient(135deg, #020617, #0f172a, #111827);
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    color: #f8fafc;
 }
 
 .editar-propuesta-card {
     width: 100%;
-    max-width: 760px;
-    background: white;
-    border-radius: 28px;
-    padding: 34px;
-    box-shadow: 0 22px 55px rgba(15, 23, 42, 0.14);
-    border: 1px solid #e2e8f0;
+    max-width: 820px;
+    background: rgba(15, 23, 42, 0.78);
+    border-radius: 34px;
+    padding: 42px;
+    box-shadow: 0 35px 90px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    backdrop-filter: blur(18px);
 }
 
 .back-button {
     border: none;
     background: transparent;
-    color: #2563eb;
-    font-weight: 700;
+    color: #7dd3fc;
+    font-weight: 800;
     cursor: pointer;
-    margin-bottom: 24px;
+    margin-bottom: 26px;
+    font-size: 15px;
+    transition: 0.25s ease;
+}
+
+.back-button:hover {
+    color: #e0f2fe;
+    transform: translateX(-4px);
 }
 
 .editar-badge {
     display: inline-block;
-    padding: 8px 14px;
+    padding: 9px 16px;
     border-radius: 999px;
-    background: #dbeafe;
-    color: #1d4ed8;
-    font-weight: 800;
+    background: rgba(56, 189, 248, 0.14);
+    color: #7dd3fc;
+    border: 1px solid rgba(125, 211, 252, 0.25);
+    font-weight: 900;
     font-size: 13px;
 }
 
 .editar-propuesta-card h1 {
-    margin: 18px 0 8px;
-    color: #0f172a;
-    font-size: 34px;
+    margin: 20px 0 10px;
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    background: linear-gradient(90deg, #ffffff, #bfdbfe, #7dd3fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .editar-subtitle {
-    color: #64748b;
-    margin-bottom: 30px;
+    color: #cbd5e1;
+    margin-bottom: 32px;
+    line-height: 1.6;
 }
 
 .editar-form {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
 }
 
 .editar-form label {
-    color: #0f172a;
-    font-weight: 700;
+    color: #e2e8f0;
+    font-weight: 800;
+    font-size: 14px;
 }
 
 .editar-form input,
 .editar-form textarea {
     width: 100%;
-    padding: 14px 16px;
-    border-radius: 14px;
-    border: 1px solid #cbd5e1;
+    padding: 15px 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(148, 163, 184, 0.28);
     outline: none;
     font-size: 15px;
-    color: #0f172a;
-    background: #f8fafc;
+    color: #f8fafc;
+    background: rgba(255, 255, 255, 0.08);
+    transition: 0.25s ease;
+}
+
+.editar-form input::placeholder,
+.editar-form textarea::placeholder {
+    color: #94a3b8;
 }
 
 .editar-form textarea {
-    min-height: 150px;
+    min-height: 170px;
     resize: vertical;
 }
 
 .editar-form input:focus,
 .editar-form textarea:focus {
-    border-color: #2563eb;
-    background: white;
+    border-color: rgba(125, 211, 252, 0.75);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.12);
 }
 
 .save-btn {
-    margin-top: 18px;
-    padding: 14px 22px;
+    margin-top: 22px;
+    padding: 15px 24px;
     border: none;
-    border-radius: 14px;
-    background: #2563eb;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #2563eb, #0ea5e9);
     color: white;
-    font-weight: 800;
+    font-weight: 900;
     cursor: pointer;
-    transition: 0.2s ease;
+    transition: 0.25s ease;
+    box-shadow: 0 15px 35px rgba(14, 165, 233, 0.32);
 }
 
 .save-btn:hover {
-    background: #1d4ed8;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 45px rgba(14, 165, 233, 0.45);
+}
+
+.save-btn:active {
+    transform: scale(0.98);
+}
+
+@media (max-width: 700px) {
+    .editar-propuesta-page {
+        padding: 30px 5%;
+    }
+
+    .editar-propuesta-card {
+        padding: 28px;
+        border-radius: 28px;
+    }
+
+    .editar-propuesta-card h1 {
+        font-size: 34px;
+    }
+
+    .save-btn {
+        width: 100%;
+    }
 }

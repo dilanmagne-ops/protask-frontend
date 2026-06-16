@@ -72,7 +72,7 @@ export default function ProposalProfile({ proposalId }: ProposalProfileProps) {
             }
 
             const response = await fetch(
-                `http://localhost:3000/api/proposals/${proposalId}`,
+                `http://localhost:3001/api/proposals/${proposalId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -140,7 +140,7 @@ export default function ProposalProfile({ proposalId }: ProposalProfileProps) {
             }
 
             const response = await fetch(
-                `http://localhost:3000/api/proposals/${proposalId}`,
+                `http://localhost:3001/api/proposals/${proposalId}`,
                 {
                     method: "DELETE",
                     headers:

@@ -2,63 +2,73 @@
     min-height: 100vh;
     padding: 50px 8%;
     background:
-        radial-gradient(circle at top left, rgba(37, 99, 235, 0.22), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.16), transparent 35%),
-        linear-gradient(135deg, #f8fafc, #e2e8f0);
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.38), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.22), transparent 34%),
+        linear-gradient(135deg, #020617, #0f172a, #111827);
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    color: #f8fafc;
 }
 
 .tarjeta-principal {
     width: 100%;
-    max-width: 900px;
-    background: white;
-    border-radius: 28px;
-    padding: 36px;
-    box-shadow: 0 22px 55px rgba(15, 23, 42, 0.14);
-    border: 1px solid #e2e8f0;
+    max-width: 940px;
+    background: rgba(15, 23, 42, 0.78);
+    border-radius: 34px;
+    padding: 42px;
+    box-shadow: 0 35px 90px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    backdrop-filter: blur(18px);
 }
 
 .btn-volver {
     border: none;
     background: transparent;
-    color: #2563eb;
+    color: #7dd3fc;
     font-weight: 800;
     cursor: pointer;
-    margin-bottom: 24px;
+    margin-bottom: 26px;
     font-size: 15px;
+    transition: 0.25s ease;
 }
 
 .btn-volver:hover {
-    text-decoration: underline;
+    color: #e0f2fe;
+    transform: translateX(-4px);
 }
 
 .tarjeta-principal h1 {
-    margin: 0 0 24px;
-    color: #0f172a;
-    font-size: 38px;
+    margin: 0 0 28px;
+    font-size: 44px;
     font-weight: 900;
+    letter-spacing: -1px;
+    background: linear-gradient(90deg, #ffffff, #bfdbfe, #7dd3fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .proyecto-info {
-    padding: 24px;
-    border-radius: 20px;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    margin-bottom: 30px;
+    padding: 26px;
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at top left, rgba(14, 165, 233, 0.16), transparent 35%),
+        rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    margin-bottom: 34px;
 }
 
 .proyecto-info h2 {
     margin: 0 0 10px;
-    color: #0f172a;
-    font-size: 26px;
+    color: #f8fafc;
+    font-size: 28px;
+    font-weight: 900;
 }
 
 .proyecto-info p {
     margin: 0 0 18px;
-    color: #64748b;
-    font-weight: 600;
+    color: #cbd5e1;
+    font-weight: 700;
 }
 
 .proyecto-datos {
@@ -68,11 +78,12 @@
 }
 
 .proyecto-datos span {
-    padding: 10px 14px;
+    padding: 11px 16px;
     border-radius: 999px;
-    background: #dbeafe;
-    color: #1d4ed8;
-    font-weight: 800;
+    background: rgba(56, 189, 248, 0.14);
+    color: #7dd3fc;
+    border: 1px solid rgba(125, 211, 252, 0.25);
+    font-weight: 900;
     font-size: 14px;
 }
 
@@ -81,9 +92,10 @@
 }
 
 .formulario-propuesta h2 {
-    margin: 0 0 20px;
-    color: #0f172a;
-    font-size: 26px;
+    margin: 0 0 22px;
+    color: #f8fafc;
+    font-size: 28px;
+    font-weight: 900;
 }
 
 .fila-campos {
@@ -95,12 +107,12 @@
 .campo {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-bottom: 18px;
+    gap: 9px;
+    margin-bottom: 20px;
 }
 
 .campo label {
-    color: #0f172a;
+    color: #e2e8f0;
     font-weight: 800;
     font-size: 14px;
 }
@@ -108,40 +120,40 @@
 .campo input,
 .campo textarea {
     width: 100%;
-    padding: 14px 16px;
-    border-radius: 14px;
-    border: 1px solid #cbd5e1;
-    background: #f8fafc;
-    color: #0f172a;
+    padding: 15px 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    background: rgba(255, 255, 255, 0.08);
+    color: #f8fafc;
     font-size: 15px;
     outline: none;
-    transition: 0.2s ease;
+    transition: 0.25s ease;
 }
 
 .campo input:focus,
 .campo textarea:focus {
-    border-color: #2563eb;
-    background: white;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    border-color: rgba(125, 211, 252, 0.75);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.12);
 }
 
 .campo textarea {
-    min-height: 160px;
+    min-height: 170px;
     resize: vertical;
 }
 
 .mensaje-verificado {
-    margin-top: 18px;
-    padding: 14px 18px;
-    border-radius: 16px;
-    background: #dcfce7;
-    color: #166534;
-    font-weight: 800;
-    border: 1px solid #bbf7d0;
+    margin-top: 20px;
+    padding: 16px 18px;
+    border-radius: 18px;
+    background: rgba(34, 197, 94, 0.13);
+    color: #86efac;
+    font-weight: 900;
+    border: 1px solid rgba(134, 239, 172, 0.28);
 }
 
 .botones {
-    margin-top: 28px;
+    margin-top: 30px;
     display: flex;
     justify-content: flex-end;
     gap: 14px;
@@ -149,37 +161,40 @@
 
 .btn-cancelar,
 .btn-enviar {
-    padding: 14px 22px;
-    border-radius: 14px;
+    padding: 15px 24px;
+    border-radius: 16px;
     border: none;
-    font-weight: 800;
+    font-weight: 900;
     cursor: pointer;
-    transition: 0.2s ease;
+    transition: 0.25s ease;
 }
 
 .btn-cancelar {
-    background: #e2e8f0;
-    color: #334155;
+    background: rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    border: 1px solid rgba(148, 163, 184, 0.22);
 }
 
 .btn-cancelar:hover {
-    background: #cbd5e1;
-    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.16);
+    color: #f8fafc;
+    transform: translateY(-3px);
 }
 
 .btn-enviar {
-    background: #2563eb;
+    background: linear-gradient(135deg, #2563eb, #0ea5e9);
     color: white;
+    box-shadow: 0 15px 35px rgba(14, 165, 233, 0.32);
 }
 
 .btn-enviar:hover {
-    background: #1d4ed8;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 45px rgba(14, 165, 233, 0.45);
 }
 
 .nota {
-    margin-top: 20px;
-    color: #64748b;
+    margin-top: 22px;
+    color: #94a3b8;
     font-size: 14px;
     text-align: right;
 }
@@ -190,11 +205,12 @@
     }
 
     .tarjeta-principal {
-        padding: 26px;
+        padding: 28px;
+        border-radius: 28px;
     }
 
     .tarjeta-principal h1 {
-        font-size: 30px;
+        font-size: 34px;
     }
 
     .fila-campos {
