@@ -66,7 +66,7 @@ export default function VerPropuestasPage()
             }
 
             const response = await fetch(
-                `http://localhost:3000/api/proposals/project/${projectId}`,
+                `http://localhost:3001/api/proposals/project/${projectId}`,
                 {
                     headers:
                     {
@@ -124,7 +124,7 @@ export default function VerPropuestasPage()
         }
 
         const response = await fetch(
-            `http://localhost:3000/api/proposals/${proposalId}/accept`,
+            `http://localhost:3001/api/proposals/${proposalId}/accept`,
             {
                 method: "PATCH",
                 headers:
@@ -185,7 +185,7 @@ export default function VerPropuestasPage()
             }
 
             const response = await fetch(
-                `http://localhost:3000/api/proposals/${proposalId}/reject`,
+                `http://localhost:3001/api/proposals/${proposalId}/reject`,
                 {
                     method: "PATCH",
 

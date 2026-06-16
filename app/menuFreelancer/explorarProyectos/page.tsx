@@ -31,7 +31,7 @@ export default function ExplorarProyectos() {
         try {
             const token = localStorage.getItem("token");
 
-            const response = await fetch("http://localhost:3000/api/projects", {
+            const response = await fetch("http://localhost:3001/api/projects", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

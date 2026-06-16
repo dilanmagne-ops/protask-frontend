@@ -31,7 +31,7 @@ export default function PendientesPage()
             localStorage.getItem("token");
 
             const response = await fetch(
-                "http://localhost:3000/api/users",
+                "http://localhost:3001/api/users",
                 {
                     headers:
                     {
@@ -72,7 +72,7 @@ export default function PendientesPage()
             localStorage.getItem("token");
 
             const response = await fetch(
-                `http://localhost:3000/api/users/${id}/verify`,
+                `http://localhost:3001/api/users/${id}/verify`,
                 {
                     method: "PATCH",
 
@@ -108,7 +108,7 @@ export default function PendientesPage()
             localStorage.getItem("token");
 
             const response = await fetch(
-                `http://localhost:3000/api/users/${id}`,
+                `http://localhost:3001/api/users/${id}`,
                 {
                     method: "DELETE",
 

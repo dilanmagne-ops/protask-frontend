@@ -71,7 +71,7 @@ export default function PagarPropuestaPage()
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                `http://localhost:3000/api/proposals/${proposalId}`,
+                `http://localhost:3001/api/proposals/${proposalId}`,
                 {
                     headers:
                     {
@@ -137,7 +137,7 @@ export default function PagarPropuestaPage()
             }
 
             const response = await fetch(
-                "http://localhost:3000/api/escrow/depositar",
+                "http://localhost:3001/api/escrow/depositar",
                 {
                     method: "POST",
                     headers:

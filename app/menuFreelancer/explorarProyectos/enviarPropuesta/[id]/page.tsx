@@ -61,7 +61,7 @@ export default function EnviarPropuesta()
             }
 
             const response = await fetch(
-                `http://localhost:3000/api/projects/${projectId}`,
+                `http://localhost:3001/api/projects/${projectId}`,
                 {
                     headers:
                     {
@@ -141,7 +141,7 @@ export default function EnviarPropuesta()
             }
 
             const response = await fetch(
-                `http://localhost:3000/api/proposals/project/${projectId}`,
+                `http://localhost:3001/api/proposals/project/${projectId}`,
                 {
                     method: "POST",
 

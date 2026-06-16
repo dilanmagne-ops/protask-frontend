@@ -34,7 +34,7 @@ export default function MisProyectos()
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                "http://localhost:3000/api/projects",
+                "http://localhost:3001/api/projects",
                 {
                     headers:
                     {

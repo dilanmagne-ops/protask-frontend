@@ -26,7 +26,7 @@ export default function ProjectForm()
             const token = localStorage.getItem("token");
 
             const response =
-            await fetch("http://localhost:3000/api/projects",
+            await fetch("http://localhost:3001/api/projects",
                 {
                     method: "POST",
                     headers:

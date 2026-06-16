@@ -16,7 +16,7 @@ type Project = {
     updatedAt?: string;
 };
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = "http://localhost:3001/api";
 
 export default function VerProyectoPage() {
     const router = useRouter();

@@ -62,7 +62,7 @@ export default function EditarPropuestaPage()
             }
 
             const response = await fetch(
-                `http://localhost:3000/api/proposals/${proposalId}`,
+                `http://localhost:3001/api/proposals/${proposalId}`,
                 {
                     headers:
                     {
@@ -145,7 +145,7 @@ export default function EditarPropuestaPage()
             }
 
             const response = await fetch(
-                `http://localhost:3000/api/proposals/${proposalId}`,
+                `http://localhost:3001/api/proposals/${proposalId}`,
                 {
                     method: "PATCH",
 
@@ -220,7 +220,7 @@ export default function EditarPropuestaPage()
             }
 
             const response = await fetch(
-                `http://localhost:3000/api/proposals/${proposalId}`,
+                `http://localhost:3001/api/proposals/${proposalId}`,
                 {
                     method: "DELETE",
                     headers:
