@@ -154,13 +154,13 @@ export default function VerMisTrabajos() {
                                         className="delete-btn"
                                         onClick={() => {
                                             localStorage.setItem(
-                                                "selectedProject",
-                                                JSON.stringify(proposal.project)
-                                            );
+                                            "selectedProposal",
+                                            JSON.stringify(proposal)
+                                        );
 
-                                            router.push(
-                                                `/menuFreelancer/verMisTrabajos/${proposal.project.id}`
-                                            );
+                                        router.push(
+                                            `/menuFreelancer/verMisTrabajos/${proposal.id}`
+                                        );
                                         }}
                                     >
                                         Ver trabajo

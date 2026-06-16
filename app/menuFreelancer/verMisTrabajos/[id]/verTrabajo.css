@@ -1,0 +1,394 @@
+.vertrabajo-page {
+    min-height: 100vh;
+    background: #f3f7fb;
+    padding: 40px 8%;
+    color: #1f2937;
+}
+
+.vertrabajo-container {
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+.vertrabajo-header {
+    margin-bottom: 26px;
+}
+
+.back-button {
+    border: none;
+    background: #e5e7eb;
+    color: #111827;
+    padding: 10px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.back-button:hover {
+    background: #d1d5db;
+}
+
+.vertrabajo-badge {
+    display: inline-block;
+    background: #dcfce7;
+    color: #15803d;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.vertrabajo-header h1 {
+    font-size: 38px;
+    margin: 0 0 10px;
+    color: #0f172a;
+}
+
+.vertrabajo-header p {
+    max-width: 760px;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+.vertrabajo-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.vertrabajo-card {
+    background: white;
+    border: 1px solid #dbe4ee;
+    border-radius: 22px;
+    padding: 24px;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.vertrabajo-card h2 {
+    margin: 0 0 18px;
+    color: #0f172a;
+}
+
+.info-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.info-list div {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 14px;
+    border-radius: 16px;
+}
+
+.info-list span {
+    display: block;
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.info-list strong {
+    color: #0f172a;
+}
+
+.proposal-description {
+    margin-top: 22px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.proposal-description h3 {
+    margin: 0 0 8px;
+    color: #1d4ed8;
+}
+
+.proposal-description p {
+    margin: 0;
+    color: #334155;
+    line-height: 1.5;
+}
+
+.entrega-card {
+    border: 1px dashed #22c55e;
+}
+
+.entrega-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.entrega-form label {
+    font-size: 14px;
+    font-weight: 800;
+    color: #334155;
+}
+
+.file-box {
+    border: 2px dashed #cbd5e1;
+    border-radius: 18px;
+    padding: 24px;
+    text-align: center;
+    background: #f8fafc;
+    position: relative;
+}
+
+.file-icon {
+    display: block;
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.file-box input {
+    width: 100%;
+    cursor: pointer;
+}
+
+.file-box small {
+    display: block;
+    margin-top: 8px;
+    color: #64748b;
+}
+
+.selected-file {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #eef2ff;
+    border: 1px solid #c7d2fe;
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+
+.selected-file strong {
+    color: #4338ca;
+}
+
+.entrega-form textarea {
+    min-height: 130px;
+    resize: vertical;
+    border: 1px solid #cbd5e1;
+    border-radius: 14px;
+    padding: 14px;
+    font-family: inherit;
+    outline: none;
+}
+
+.entrega-form textarea:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16);
+}
+
+.submit-delivery-btn {
+    margin-top: 8px;
+    border: none;
+    border-radius: 14px;
+    padding: 14px 18px;
+    background: #16a34a;
+    color: white;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.submit-delivery-btn:hover {
+    background: #15803d;
+}
+
+.submit-delivery-btn:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+}
+
+.warning-box,
+.revision-box,
+.success-message,
+.error-message {
+    padding: 12px 14px;
+    border-radius: 14px;
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+.warning-box {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    color: #9a3412;
+}
+
+.revision-box {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+}
+
+.revision-box p {
+    margin: 6px 0 0;
+}
+
+.success-message {
+    background: #dcfce7;
+    border: 1px solid #86efac;
+    color: #166534;
+}
+
+.error-message {
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+}
+
+.historial-card {
+    margin-top: 24px;
+}
+
+.empty-text {
+    color: #64748b;
+}
+
+.deliveries-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.delivery-item {
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    border-radius: 18px;
+    padding: 16px;
+}
+
+.delivery-item-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.status-pill {
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.status-pendiente_revision {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-aprobado {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-revision_solicitada {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-rechazado {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.delivery-item p {
+    color: #475569;
+    line-height: 1.5;
+}
+
+.revision-comment {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 14px;
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+}
+
+.delivery-files {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.delivery-file {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.delivery-file small,
+.delivery-date {
+    color: #64748b;
+}
+
+.delivery-date {
+    display: block;
+    margin-top: 12px;
+}
+
+@media (max-width: 900px) {
+    .vertrabajo-page {
+        padding: 28px 5%;
+    }
+
+    .vertrabajo-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-list {
+        grid-template-columns: 1fr;
+    }
+
+    .vertrabajo-header h1 {
+        font-size: 30px;
+    }
+}
+.review-client-box {
+    margin-top: 18px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.review-client-box h3 {
+    margin: 0 0 8px;
+    color: #1d4ed8;
+}
+
+.review-client-box p {
+    color: #475569;
+    line-height: 1.5;
+}
+
+.review-client-button {
+    border: none;
+    border-radius: 14px;
+    padding: 12px 16px;
+    background: #2563eb;
+    color: white;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.review-client-button:hover {
+    background: #1d4ed8;
+}
+.vertrabajo-grid.completed-grid {
+    grid-template-columns: 1fr;
+}

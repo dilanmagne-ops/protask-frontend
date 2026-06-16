@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import "./UserProfile.css";
 
@@ -10,27 +10,63 @@ type UserProfileData = {
   email: string;
   role: string;
   status?: string;
+  rating?: number | string;
+  totalReviews?: number;
+  completedProjects?: number;
+  isVerified?: boolean;
   createdAt?: string;
   updatedAt?: string;
+};
+
+type ReviewUser = {
+  id: string;
+  name: string;
+  avatarUrl?: string;
+};
+
+type Review = {
+  id: string;
+  proposalId: string;
+  reviewer: ReviewUser;
+  reviewed: ReviewUser;
+  rating: number;
+  comment?: string;
+  reviewerRole: "cliente" | "freelancer";
+  createdAt: string;
 };
 
 type UserProfileProps = {
   userId: string;
 };
 
+const API_URL = "http://localhost:3000/api";
+
 export default function UserProfile({ userId }: UserProfileProps) {
   const router = useRouter();
 
   const [user, setUser] = useState<UserProfileData | null>(null);
+  const [reviews, setReviews] = useState<Review[]>([]);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const averageRating = useMemo(() => {
+    if (user?.rating !== undefined && user?.rating !== null) {
+      return Number(user.rating);
+    }
+
+    if (reviews.length === 0) return 0;
+
+    const total = reviews.reduce((sum, review) => sum + Number(review.rating), 0);
+    return total / reviews.length;
+  }, [user, reviews]);
+
   useEffect(() => {
     if (!userId) return;
-    obtenerUsuario();
+    obtenerPerfilCompleto();
   }, [userId]);
 
-  async function obtenerUsuario() {
+  async function obtenerPerfilCompleto() {
     try {
       setLoading(true);
       setError("");
@@ -42,28 +78,77 @@ export default function UserProfile({ userId }: UserProfileProps) {
         return;
       }
 
-      const response = await fetch(`http://localhost:3000/api/users/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const [userResponse, reviewsResponse] = await Promise.all([
+        fetch(`${API_URL}/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }),
 
-      const data = await response.json();
+        fetch(`${API_URL}/reviews/user/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }),
+      ]);
 
-      if (!response.ok) {
-        throw new Error(data.message || "No se pudo obtener el perfil");
+      const userDataResponse = await userResponse.json();
+
+      if (!userResponse.ok) {
+        throw new Error(
+          userDataResponse.message ||
+            userDataResponse.messages?.[0]?.description ||
+            "No se pudo obtener el perfil"
+        );
       }
 
-      // Por si tu backend devuelve { data: usuario } o directamente usuario
-      const userData = data.data ?? data;
-
+      const userData = userDataResponse.data ?? userDataResponse;
       setUser(userData);
+
+      const reviewsDataResponse = await reviewsResponse.json();
+
+      if (reviewsResponse.ok) {
+        setReviews(reviewsDataResponse.data ?? []);
+      } else {
+        console.log("No se pudieron cargar las reseñas:", reviewsDataResponse);
+        setReviews([]);
+      }
     } catch (error) {
       console.error(error);
       setError("No se pudo cargar el perfil del usuario.");
     } finally {
       setLoading(false);
     }
+  }
+
+  function renderStars(rating: number) {
+    const rounded = Math.round(rating);
+
+    return (
+      <div className="profile-stars">
+        {[1, 2, 3, 4, 5].map((value) => (
+          <span key={value} className={value <= rounded ? "star filled" : "star"}>
+            ★
+          </span>
+        ))}
+      </div>
+    );
+  }
+
+  function formatearFecha(fecha: string) {
+    if (!fecha) return "Sin fecha";
+
+    return new Date(fecha).toLocaleDateString("es-BO", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  }
+
+  function textoRolCalificador(role: string) {
+    if (role === "cliente") return "Cliente";
+    if (role === "freelancer") return "Freelancer";
+    return role;
   }
 
   if (loading) {
@@ -114,6 +199,13 @@ export default function UserProfile({ userId }: UserProfileProps) {
           <div>
             <h1>{user.name}</h1>
             <p>{user.email}</p>
+
+            <div className="rating-summary-small">
+              {renderStars(averageRating)}
+              <span>
+                {averageRating > 0 ? averageRating.toFixed(1) : "Sin calificación"}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -130,6 +222,32 @@ export default function UserProfile({ userId }: UserProfileProps) {
             </div>
           )}
 
+          <div className="profile-row">
+            <span>Calificación promedio</span>
+            <strong>
+              {averageRating > 0 ? `${averageRating.toFixed(1)} / 5` : "Sin reseñas"}
+            </strong>
+          </div>
+
+          <div className="profile-row">
+            <span>Total de reseñas</span>
+            <strong>{user.totalReviews ?? reviews.length}</strong>
+          </div>
+
+          {user.completedProjects !== undefined && (
+            <div className="profile-row">
+              <span>Proyectos completados</span>
+              <strong>{user.completedProjects}</strong>
+            </div>
+          )}
+
+          {user.isVerified !== undefined && (
+            <div className="profile-row">
+              <span>Verificado</span>
+              <strong>{user.isVerified ? "Sí" : "No"}</strong>
+            </div>
+          )}
+
           {user.createdAt && (
             <div className="profile-row">
               <span>Registrado</span>
@@ -142,8 +260,8 @@ export default function UserProfile({ userId }: UserProfileProps) {
           <div className="profile-extra">
             <h3>Perfil Freelancer</h3>
             <p>
-              Aquí luego puedes mostrar sus propuestas, trabajos aceptados,
-              reputación, KYC o calificación.
+              Aquí puedes ver su reputación, calificaciones recibidas de clientes
+              y datos generales del perfil.
             </p>
           </div>
         )}
@@ -152,11 +270,62 @@ export default function UserProfile({ userId }: UserProfileProps) {
           <div className="profile-extra">
             <h3>Perfil Cliente</h3>
             <p>
-              Aquí luego puedes mostrar sus proyectos publicados, proyectos en
-              progreso o historial de pagos.
+              Aquí puedes ver su reputación como cliente y las calificaciones
+              recibidas de freelancers.
             </p>
           </div>
         )}
+
+        <div className="reviews-section">
+          <div className="reviews-title-row">
+            <div>
+              <h3>Reseñas recibidas</h3>
+              <p>
+                {user.role === "freelancer"
+                  ? "Opiniones de clientes que trabajaron con este freelancer."
+                  : "Opiniones de freelancers que trabajaron con este cliente."}
+              </p>
+            </div>
+
+            <div className="rating-box">
+              <strong>{averageRating > 0 ? averageRating.toFixed(1) : "0.0"}</strong>
+              <span>{reviews.length} reseña(s)</span>
+            </div>
+          </div>
+
+          {reviews.length === 0 ? (
+            <div className="empty-reviews">
+              Este usuario todavía no tiene reseñas.
+            </div>
+          ) : (
+            <div className="reviews-list">
+              {reviews.map((review) => (
+                <article className="review-item" key={review.id}>
+                  <div className="review-header">
+                    <div>
+                      <strong>{review.reviewer.name}</strong>
+                      <small>
+                        {textoRolCalificador(review.reviewerRole)} ·{" "}
+                        {formatearFecha(review.createdAt)}
+                      </small>
+                    </div>
+
+                    <div className="review-rating">
+                      {renderStars(review.rating)}
+                      <span>{review.rating}/5</span>
+                    </div>
+                  </div>
+
+                  {review.comment ? (
+                    <p>{review.comment}</p>
+                  ) : (
+                    <p className="no-comment">Sin comentario escrito.</p>
+                  )}
+                </article>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
